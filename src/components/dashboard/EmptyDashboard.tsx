@@ -3,12 +3,14 @@ import { Button } from '@/components/ui/button';
 import { Upload, FileText, Globe, Video, Mic } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useNotebooks } from '@/hooks/useNotebooks';
+import { useProfile } from '@/hooks/useProfile';
 const EmptyDashboard = () => {
   const navigate = useNavigate();
   const {
     createNotebook,
     isCreating
   } = useNotebooks();
+  const { isAdmin } = useProfile();
   const handleCreateNotebook = () => {
     console.log('Create notebook button clicked');
     console.log('isCreating:', isCreating);
@@ -27,8 +29,14 @@ const EmptyDashboard = () => {
   };
   return <div className="text-center py-16">
       <div className="mb-12">
-        <h2 className="text-3xl font-medium text-gray-900 mb-4">Create your first notebook</h2>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">InsightsLM is an AI-powered research and writing assistant that works best with the sources you upload</p>
+        <h2 className="text-3xl font-medium text-gray-900 mb-4">
+          {isAdmin ? 'Create your first notebook' : 'Welcome to InsightsLM'}
+        </h2>
+        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          {isAdmin 
+            ? 'InsightsLM is an AI-powered research and writing assistant that works best with the sources you upload'
+            : 'Browse available notebooks to explore AI-powered research and insights'}
+        </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
@@ -57,10 +65,15 @@ const EmptyDashboard = () => {
         </div>
       </div>
 
-      <Button onClick={handleCreateNotebook} size="lg" className="bg-blue-600 hover:bg-blue-700" disabled={isCreating}>
-        <Upload className="h-5 w-5 mr-2" />
-        {isCreating ? 'Creating...' : 'Create notebook'}
-      </Button>
+      {isAdmin && (
+        <Button onClick={handleCreateNotebook} size="lg" className="bg-blue-600 hover:bg-blue-700" disabled={isCreating}>
+          <Upload className="h-5 w-5 mr-2" />
+          {isCreating ? 'Creating...' : 'Create notebook'}
+        </Button>
+      )}
+      {!isAdmin && (
+        <p className="text-gray-600">Contact your administrator to request access to specific notebooks.</p>
+      )}
     </div>;
 };
 export default EmptyDashboard;

@@ -264,12 +264,13 @@ export const useChatMessages = (notebookId?: string) => {
     }) => {
       if (!user) throw new Error('User not authenticated');
 
-      // Call the n8n webhook
-      const webhookResponse = await supabase.functions.invoke('send-chat-message', {
+      // Call the n8n webhook with permissions check
+      const webhookResponse = await supabase.functions.invoke('send-chat-message-with-permissions', {
         body: {
           session_id: messageData.notebookId,
           message: messageData.content,
-          user_id: user.id
+          user_id: user.id,
+          notebook_id: messageData.notebookId
         }
       });
 

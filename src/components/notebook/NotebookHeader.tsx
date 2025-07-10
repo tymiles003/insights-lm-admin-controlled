@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { User, LogOut } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useNotebookUpdate } from '@/hooks/useNotebookUpdate';
+import { useProfile } from '@/hooks/useProfile';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,9 +25,10 @@ const NotebookHeader = ({ title, notebookId }: NotebookHeaderProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(title);
   const { updateNotebook, isUpdating } = useNotebookUpdate();
+  const { isAdmin } = useProfile();
 
   const handleTitleClick = () => {
-    if (notebookId) {
+    if (notebookId && isAdmin) {
       setIsEditing(true);
       setEditedTitle(title);
     }
@@ -82,7 +84,7 @@ const NotebookHeader = ({ title, notebookId }: NotebookHeaderProps) => {
               />
             ) : (
               <span 
-                className="text-lg font-medium text-gray-900 cursor-pointer hover:bg-gray-50 rounded px-2 py-1 transition-colors"
+                className={`text-lg font-medium text-gray-900 rounded px-2 py-1 transition-colors ${isAdmin ? 'cursor-pointer hover:bg-gray-50' : ''}`}
                 onClick={handleTitleClick}
               >
                 {title}

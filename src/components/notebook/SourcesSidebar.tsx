@@ -11,6 +11,7 @@ import RenameSourceDialog from './RenameSourceDialog';
 import SourceContentViewer from '@/components/chat/SourceContentViewer';
 import { useSources } from '@/hooks/useSources';
 import { useSourceDelete } from '@/hooks/useSourceDelete';
+import { useProfile } from '@/hooks/useProfile';
 import { Citation } from '@/types/message';
 
 interface SourcesSidebarProps {
@@ -43,6 +44,8 @@ const SourcesSidebar = ({
     deleteSource,
     isDeleting
   } = useSourceDelete();
+  
+  const { isAdmin } = useProfile();
 
   // Get the source content for the selected citation
   const getSourceContent = (citation: Citation) => {
@@ -232,12 +235,14 @@ const SourcesSidebar = ({
           <h2 className="text-lg font-medium text-gray-900">Sources</h2>
         </div>
         
-        <div className="flex space-x-2">
-          <Button variant="outline" size="sm" className="flex-1" onClick={() => setShowAddSourcesDialog(true)}>
-            <Plus className="h-4 w-4 mr-2" />
-            Add
-          </Button>
-        </div>
+        {isAdmin && (
+          <div className="flex space-x-2">
+            <Button variant="outline" size="sm" className="flex-1" onClick={() => setShowAddSourcesDialog(true)}>
+              <Plus className="h-4 w-4 mr-2" />
+              Add
+            </Button>
+          </div>
+        )}
       </div>
 
       <ScrollArea className="flex-1 h-full">
@@ -268,14 +273,23 @@ const SourcesSidebar = ({
                     </Card>
                   </ContextMenuTrigger>
                   <ContextMenuContent>
-                    <ContextMenuItem onClick={() => handleRenameSource(source)}>
-                      <Edit className="h-4 w-4 mr-2" />
-                      Rename source
-                    </ContextMenuItem>
-                    <ContextMenuItem onClick={() => handleRemoveSource(source)} className="text-red-600 focus:text-red-600">
-                      <Trash2 className="h-4 w-4 mr-2" />
-                      Remove source
-                    </ContextMenuItem>
+                    {isAdmin && (
+                      <>
+                        <ContextMenuItem onClick={() => handleRenameSource(source)}>
+                          <Edit className="h-4 w-4 mr-2" />
+                          Rename source
+                        </ContextMenuItem>
+                        <ContextMenuItem onClick={() => handleRemoveSource(source)} className="text-red-600 focus:text-red-600">
+                          <Trash2 className="h-4 w-4 mr-2" />
+                          Remove source
+                        </ContextMenuItem>
+                      </>
+                    )}
+                    {!isAdmin && (
+                      <ContextMenuItem disabled>
+                        <span className="text-gray-500">Admin access required</span>
+                      </ContextMenuItem>
+                    )}
                   </ContextMenuContent>
                 </ContextMenu>
               ))}

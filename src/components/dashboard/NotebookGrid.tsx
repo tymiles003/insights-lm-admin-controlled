@@ -5,6 +5,7 @@ import NotebookCard from './NotebookCard';
 import { Check, Grid3X3, List, ChevronDown } from 'lucide-react';
 import { useNotebooks } from '@/hooks/useNotebooks';
 import { useNavigate } from 'react-router-dom';
+import { useProfile } from '@/hooks/useProfile';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,6 +23,7 @@ const NotebookGrid = () => {
     isCreating
   } = useNotebooks();
   const navigate = useNavigate();
+  const { isAdmin } = useProfile();
 
   const sortedNotebooks = useMemo(() => {
     if (!notebooks) return [];
@@ -71,9 +73,12 @@ const NotebookGrid = () => {
 
   return <div>
       <div className="flex items-center justify-between mb-8">
-        <Button className="bg-black hover:bg-gray-800 text-white rounded-full px-6" onClick={handleCreateNotebook} disabled={isCreating}>
-          {isCreating ? 'Creating...' : '+ Create new'}
-        </Button>
+        {isAdmin && (
+          <Button className="bg-black hover:bg-gray-800 text-white rounded-full px-6" onClick={handleCreateNotebook} disabled={isCreating}>
+            {isCreating ? 'Creating...' : '+ Create new'}
+          </Button>
+        )}
+        {!isAdmin && <div />}
         
         <div className="flex items-center space-x-4">
           <DropdownMenu>

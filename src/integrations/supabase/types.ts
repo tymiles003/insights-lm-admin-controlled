@@ -60,6 +60,7 @@ export type Database = {
           generation_status: string | null
           icon: string | null
           id: string
+          is_public: boolean
           title: string
           updated_at: string
           user_id: string
@@ -75,6 +76,7 @@ export type Database = {
           generation_status?: string | null
           icon?: string | null
           id?: string
+          is_public?: boolean
           title: string
           updated_at?: string
           user_id: string
@@ -90,6 +92,7 @@ export type Database = {
           generation_status?: string | null
           icon?: string | null
           id?: string
+          is_public?: boolean
           title?: string
           updated_at?: string
           user_id?: string
@@ -114,6 +117,7 @@ export type Database = {
           source_type: string | null
           title: string
           updated_at: string
+          user_id: string
         }
         Insert: {
           content: string
@@ -124,6 +128,7 @@ export type Database = {
           source_type?: string | null
           title: string
           updated_at?: string
+          user_id: string
         }
         Update: {
           content?: string
@@ -134,6 +139,7 @@ export type Database = {
           source_type?: string | null
           title?: string
           updated_at?: string
+          user_id?: string
         }
         Relationships: [
           {
@@ -152,6 +158,7 @@ export type Database = {
           email: string
           full_name: string | null
           id: string
+          role: 'admin' | 'user'
           updated_at: string
         }
         Insert: {
@@ -160,6 +167,7 @@ export type Database = {
           email: string
           full_name?: string | null
           id: string
+          role?: 'admin' | 'user'
           updated_at?: string
         }
         Update: {
@@ -168,6 +176,7 @@ export type Database = {
           email?: string
           full_name?: string | null
           id?: string
+          role?: 'admin' | 'user'
           updated_at?: string
         }
         Relationships: []
@@ -236,6 +245,179 @@ export type Database = {
             referencedRelation: "notebooks"
             referencedColumns: ["id"]
           },
+        ]
+      }
+      tags: {
+        Row: {
+          id: string
+          name: string
+          type: 'client' | 'brand' | 'topic' | 'time_period' | 'other' | null
+          description: string | null
+          color: string
+          created_at: string
+          created_by: string | null
+        }
+        Insert: {
+          id?: string
+          name: string
+          type?: 'client' | 'brand' | 'topic' | 'time_period' | 'other' | null
+          description?: string | null
+          color?: string
+          created_at?: string
+          created_by?: string | null
+        }
+        Update: {
+          id?: string
+          name?: string
+          type?: 'client' | 'brand' | 'topic' | 'time_period' | 'other' | null
+          description?: string | null
+          color?: string
+          created_at?: string
+          created_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tags_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      notebook_tags: {
+        Row: {
+          notebook_id: string
+          tag_id: string
+          created_at: string
+          created_by: string | null
+        }
+        Insert: {
+          notebook_id: string
+          tag_id: string
+          created_at?: string
+          created_by?: string | null
+        }
+        Update: {
+          notebook_id?: string
+          tag_id?: string
+          created_at?: string
+          created_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notebook_tags_notebook_id_fkey"
+            columns: ["notebook_id"]
+            isOneToOne: false
+            referencedRelation: "notebooks"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "notebook_tags_tag_id_fkey"
+            columns: ["tag_id"]
+            isOneToOne: false
+            referencedRelation: "tags"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "notebook_tags_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      user_permissions: {
+        Row: {
+          id: string
+          user_id: string
+          tag_id: string
+          granted_at: string
+          granted_by: string | null
+          expires_at: string | null
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          tag_id: string
+          granted_at?: string
+          granted_by?: string | null
+          expires_at?: string | null
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          tag_id?: string
+          granted_at?: string
+          granted_by?: string | null
+          expires_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_permissions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_permissions_tag_id_fkey"
+            columns: ["tag_id"]
+            isOneToOne: false
+            referencedRelation: "tags"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_permissions_granted_by_fkey"
+            columns: ["granted_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      source_tags: {
+        Row: {
+          source_id: string
+          tag_id: string
+          created_at: string
+          created_by: string | null
+        }
+        Insert: {
+          source_id: string
+          tag_id: string
+          created_at?: string
+          created_by?: string | null
+        }
+        Update: {
+          source_id?: string
+          tag_id?: string
+          created_at?: string
+          created_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "source_tags_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "sources"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "source_tags_tag_id_fkey"
+            columns: ["tag_id"]
+            isOneToOne: false
+            referencedRelation: "tags"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "source_tags_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          }
         ]
       }
     }

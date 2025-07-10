@@ -3,24 +3,34 @@
 </p>
 
 
-# InsightsLM: The Open Source NotebookLM Alternative
+# InsightsLM: Enterprise Admin-Controlled Knowledge Base
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub stars](https://img.shields.io/github/stars/theaiautomators/insights-lm-public?style=social)](https://github.com/theaiautomators/insights-lm-public/stargazers)
 [![YouTube Video](https://img.shields.io/badge/YouTube-Watch%20the%20Build-red)](https://www.youtube.com/watch?v=IXJEGjfZRBE)
 
-> What if the power of a tool like NotebookLM wasn't locked away in a closed system? What if you could build a private, self-hosted alternative that can be customized for your business needs, all without writing a single line of code?
+> **Admin-Controlled Version**: This fork of InsightsLM implements role-based access control where only administrators can manage content while users have read-only access to permitted documents.
 
-That's exactly what we've done with **InsightsLM**. This project is an open-source, self-hostable alternative to NotebookLM. It's designed to be a powerful AI research tool that grounds its responses exclusively in the sources you provide, making it a reliable window into your company's knowledge base.
+## What's Different in This Version?
+
+This admin-controlled version of InsightsLM is designed for enterprise use cases where:
+- **Only administrators** can upload and manage documents
+- **Users** have read-only access to specific content based on permissions
+- **Content is tagged** by client, brand, topic, or time period
+- **Responses are filtered** based on user permissions
+
+Perfect for agencies managing multiple clients or enterprises with strict content access requirements.
 
 
 ## About The Project
 
-NotebookLM is one of the most powerful AI research tools available today. However, its closed-source nature limits its potential for customization and private hosting. InsightsLM was created to bridge this gap.
+InsightsLM is an open-source, self-hostable alternative to NotebookLM with enterprise-grade access controls. It's a powerful AI research tool that grounds its responses exclusively in the sources you provide, with the added security of role-based permissions.
 
-This isn't just a basic prototype. It's a robust application with some killer features, developed using a "vibe-coding" approach with Loveable for the Javascript frontend and a powerful backend combination of Supabase and N8N.
-
-We are open-sourcing InsightsLM so you can install it, customize it, improve it, and even commercialize it. The ability to deploy AI agents grounded in a company's specific knowledge (a concept known as Retrieval-Augmented Generation or RAG) represents one of the biggest commercial opportunities for generative AI today.
+This version adds:
+- **Role-Based Access**: Admin and User roles with different capabilities
+- **Tag-Based Permissions**: Grant access by client, brand, or topic
+- **Content Isolation**: Users only see permitted information
+- **Audit Trail**: Track who has access to what content
 
 
 <p align="center">
@@ -37,16 +47,23 @@ https://www.theaiautomators.com/
 
 ## Key Features
 
-* **Chat with Your Documents:** Upload your documents and get instant, context-aware answers.
-* **Verifiable Citations:** Jump directly to the source of the information to ensure the AI isn't hallucinating.
-* **Podcast Generation:** Create audio summaries and discussions from your source materials, just like in NotebookLM.
-* **Private and Self-Hosted:** Maintain complete control over your data by hosting it yourself. Use local models if you wish.
-* **Customizable and Extensible:** Built with modern, accessible tools, making it easy to tailor to your specific needs.
+### Core Features
+* **Chat with Your Documents:** Get instant, context-aware answers from permitted documents
+* **Verifiable Citations:** Jump directly to the source of information
+* **Podcast Generation:** Create audio summaries from accessible content
+* **Private and Self-Hosted:** Maintain complete control over your data
+
+### Admin-Controlled Features
+* **Admin Dashboard:** Centralized content and permission management
+* **Tag Management:** Organize content by client, brand, topic, or time
+* **User Permissions:** Grant specific users access to tagged content
+* **Content Isolation:** Ensure users only see permitted information
+* **Audit Logging:** Track access and permission changes
 
 
 ## Demo & Walkthrough
 
-For a complete demonstration of InsightsLM, an overview of its architecture, and a step-by-step guide on how to set it up, check out our YouTube video:
+For a complete demonstration of the original InsightsLM, check out our YouTube video:
 
 <p>
   <a target="_blank" href="https://www.youtube.com/watch?v=IXJEGjfZRBE"><img src="https://raw.githubusercontent.com/theaiautomators/insights-lm-public/main/public/video.png" alt="Video" width="500"/></a>
@@ -64,70 +81,196 @@ This project is built with a modern, powerful stack:
     * [shadcn-ui](https://ui.shadcn.com/)
     * [Tailwind CSS](https://tailwindcss.com/)
 * **Backend:**
-    * [Supabase](https://supabase.com/) - for database, authentication, and storage.
-    * [N8N](https://theaiautomators.com/go/n8n) - for workflow automation and backend logic.
+    * [Supabase](https://supabase.com/) - for database, authentication, and storage
+    * [N8N](https://theaiautomators.com/go/n8n) - for workflow automation
+    * PostgreSQL with pgvector for semantic search
+* **Security:**
+    * Row-Level Security (RLS) policies
+    * Role-based access control
+    * Tag-based permission system
 
 
-## Getting Started: A Guide for No-Coders to Test and Customize
+## Getting Started: Admin-Controlled Setup
 
-This guide provides the quickest way to get InsightsLM up and running so you can test, customize, and experiment.
+### Prerequisites
+- Supabase account
+- N8N instance (self-hosted or cloud)
+- GitHub account
+- OpenAI API key (or compatible LLM)
 
-I recommend you following along from 17:53 in our video here for the full step by step guide - [https://youtu.be/IXJEGjfZRBE?t=1073](https://youtu.be/IXJEGjfZRBE?t=1073)
+### Quick Setup
 
-You will need a notepad file open to copy and paste in various credentials and details.
+1. **Create Supabase Project**
+   ```bash
+   # Create new project at supabase.com
+   # Save your database password
+   ```
 
-1.  **Create Supabase Account and Project**
-    * Go to [Supabase.com](https://supabase.com/) and create a free account.
-    * Create a new project. Paste in your `database password` into your open notepad file as you will need this later.
-2.  **Create GitHub Account & Repo from Template**
-    * If you don't have one, create a free account on [GitHub](https://github.com/).
-    * Navigate to the InsightsLM template repository here: [**github.com/theaiautomators/insights-lm-public**](https://github.com/theaiautomators/insights-lm-public)
-    * Click the `Use this template` button to create a copy of the repository in your own GitHub account. Fill out the form.
-3.  **Import into an AI-Coding Editor (Bolt.new)**
-    * Create an account on [Bolt.new](https://bolt.new/) as it supports Supabase integration. (While the project was built on Loveable, it is currently quite difficult to import existing Github projects into Loveable)
-    * Import your newly created GitHub repository into your Bolt project. You will need to link your Github account to Bolt. Choose the repo and import.
-    * Now click Integrations on the top and connect your Supabase project. You will need to link your Supabase account to Bolt.
-    * Once connected, the Supabase Edge Functions will auto-deploy. You will need to approve the running of the migration script to create the data structures in Supabase.
-4.  **Import and Configure N8N Workflows**
-    * The `/n8n` directory in this repository contains the JSON files for the required N8N workflows. There are 2 approaches here.
-        1. The easiest is to import the "Import_Insights_LM_Workflows.json" file into a new workflow in n8n and follow the steps in the video. This includes configuring an n8n API key which will be used to auto-create all workflows needed by the system. You will also need to set various credentials.
-        2. Instead of using the above workflow importer, you can instead download and import the 6 JSON workflows in this directory. You will need to go node by node in each workflow to configure them for your services. (e.g. Supabase, OpenAI, Gemini, Sub-Workflows etc). Follow the TODOs in each workflow.
-5.  **Add N8N Webhooks to Supabase Secrets**
-    * Your N8N workflows are triggered by webhooks from the Supabase Edge Functions. If you used the workflow importer, you will have the list of N8N secrets to create. Otherwise you'll need to gather these from the various workflows.
-    * In your Supabase project dashboard, navigate to `Edge Functions` -> `Secrets` and add the following secrets. This allows the Supabase Edge Functions to securely call your N8N workflows.
-    * These are the secrets that need to be created
-        * NOTEBOOK_CHAT_URL
-        * NOTEBOOK_GENERATION_URL
-        * AUDIO_GENERATION_WEBHOOK_URL
-        * DOCUMENT_PROCESSING_WEBHOOK_URL
-        * ADDITIONAL_SOURCES_WEBHOOK_URL
-        * NOTEBOOK_GENERATION_AUTH (This is the password for the custom Header Auth for each n8n Webhook)
-        * OPENAI_API_KEY (This is used in the Generate Note Title edge function)
-6.  **Test & Customize**
-    * That's it! Your instance of InsightsLM should now be live.
-    * You can now test the application, upload documents, and start chatting.
-    * Within Bolt.new you can also deploy this to Netlify
+2. **Fork and Deploy**
+   - Fork this repository
+   - Import into Bolt.new or deploy manually
+   - Connect Supabase integration
+
+3. **Run Migrations**
+   ```bash
+   npx supabase db push
+   ```
+   This creates:
+   - Role system (admin/user)
+   - Tag tables for content organization
+   - Permission tables for access control
+   - Updated RLS policies
+
+4. **Set Initial Admin**
+   ```sql
+   UPDATE profiles 
+   SET role = 'admin' 
+   WHERE email = 'your-admin@email.com';
+   ```
+
+5. **Configure N8N Workflows**
+   - Import workflows from `/n8n` directory
+   - Update workflows to handle tag filtering
+   - Configure webhook URLs and authentication
+
+6. **Add Supabase Secrets**
+   Navigate to Edge Functions → Secrets and add:
+   - `NOTEBOOK_CHAT_URL`
+   - `NOTEBOOK_GENERATION_URL`
+   - `AUDIO_GENERATION_WEBHOOK_URL`
+   - `DOCUMENT_PROCESSING_WEBHOOK_URL`
+   - `ADDITIONAL_SOURCES_WEBHOOK_URL`
+   - `NOTEBOOK_GENERATION_AUTH`
+   - `OPENAI_API_KEY`
+
+7. **Deploy Edge Functions**
+   ```bash
+   npx supabase functions deploy send-chat-message-with-permissions
+   ```
+
+
+## Usage Guide
+
+### For Administrators
+
+1. **Access Admin Panel**
+   - Login with admin credentials
+   - Click "Admin Panel" button in dashboard
+
+2. **Create Tags**
+   - Navigate to Tags tab
+   - Create tags for clients, brands, topics
+   - Examples: "ClientA", "Q4-2024", "Financial"
+
+3. **Upload Content**
+   - Create notebooks with descriptive names
+   - Upload relevant documents
+   - Assign appropriate tags
+
+4. **Grant Permissions**
+   - Go to User Permissions tab
+   - Select user and tag(s)
+   - Set optional expiration date
+
+### For Users
+
+1. **Login and Browse**
+   - See only notebooks you have permission to access
+   - No upload or edit capabilities
+
+2. **Ask Questions**
+   - "What were ClientA's Q4 results?"
+   - "Show me marketing metrics for Brand X"
+   - System automatically filters responses
+
+3. **Verify Information**
+   - Click citations to see source documents
+   - All responses are grounded in permitted content
+
+
+## Security Model
+
+### Role-Based Access
+- **Admins**: Full CRUD on all content
+- **Users**: Read-only access to permitted content
+
+### Tag-Based Permissions
+- Content tagged by category (client, brand, topic)
+- Users granted access to specific tags
+- Permissions can expire automatically
+
+### Content Isolation
+- RLS policies enforce access at database level
+- Chat responses filtered by permissions
+- No data leakage between clients/brands
+
+
+## Customization Options
+
+### Adding New Tag Types
+1. Update tag type enum in migrations
+2. Modify TagManagement component
+3. Add UI handling for new type
+
+### Custom Permission Logic
+1. Modify `user_has_notebook_access` function
+2. Update edge function validation
+3. Adjust RLS policies as needed
+
+### Integration Points
+- **SSO**: Add enterprise authentication
+- **Analytics**: Track usage by tag/user
+- **Automated Tagging**: ML-based classification
+- **Export Controls**: Limit data extraction
+
+
+## Migration from Standard InsightsLM
+
+See [MIGRATION_GUIDE.md](MIGRATION_GUIDE.md) for detailed steps on converting an existing InsightsLM instance to the admin-controlled version.
+
+
+## API Reference
+
+See [API_REFERENCE.md](API_REFERENCE.md) for detailed documentation of new endpoints and parameters.
+
+
+## Troubleshooting
+
+### Users Can't See Content
+- Verify permissions are granted
+- Check tags are assigned to notebooks
+- Ensure permissions haven't expired
+
+### Chat Returns No Results
+- Confirm notebook has sources
+- Verify n8n workflow includes tag filtering
+- Check vector embeddings exist
+
+### Admin Features Missing
+- Confirm role is 'admin' in database
+- Clear browser cache
+- Check console for errors
+
 
 ## Contributing
 
-Contributions make the open-source community an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
+We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
 
-- Fork the Project
-- Create your Feature Branch (git checkout -b feature/AmazingFeature)
-- Commit your Changes (git commit -m 'Add some AmazingFeature')
-- Push to the Branch (git push origin feature/AmazingFeature)
-- Open a Pull Request
 
 ## License
 
-This codebase is distributed under the MIT License.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## A Note on n8n's Sustainable Use License
 
-While InsightsLM is fully open-sourced and Supabase is also open source, it's important to be aware that n8n, which powers much of the backend automation, is not open source in the traditional sense.
+## Support
 
-n8n is distributed under a [Sustainable Use License](https://github.com/n8n-io/n8n/blob/master/LICENSE.md). This license allows free usage for internal business purposes, including hosting workflows within your company or organization.
+- **Documentation**: Check [ADMIN_CONTROLLED_README.md](ADMIN_CONTROLLED_README.md)
+- **Issues**: Open a GitHub issue
+- **Community**: Join [The AI Automators](https://www.theaiautomators.com/)
 
-However, if you plan to use InsightsLM as part of a commercial SaaS offering—such as reselling access or hosting a public version for multiple clients—you may need to obtain an n8n Enterprise License. We’re not lawyers, so we recommend that you review the n8n license and contacting their team if your use case falls into a commercial category.
 
-Alternatives: If your use case is restricted by the n8n license, one potential option is to convert key workflows into Supabase Edge Functions. This would allow you to fully avoid using n8n in production.
+## Acknowledgments
+
+- Original InsightsLM by The AI Automators
+- Built on the shoulders of Supabase and N8N
+- Inspired by Google's NotebookLM
