@@ -161,7 +161,7 @@ const ChatArea = ({
   const getPlaceholderText = () => {
     if (isChatDisabled) {
       if (sourceCount === 0) {
-        return "Upload a source to get started...";
+        return isAdmin ? "Upload a source to get started..." : "Contact admin to add sources...";
       } else {
         return "Please wait while your sources are being processed...";
       }

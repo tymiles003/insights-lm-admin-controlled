@@ -48,11 +48,13 @@ export const useNotes = (notebookId?: string) => {
       extracted_text?: string;
     }) => {
       if (!notebookId) throw new Error('Notebook ID is required');
+      if (!user) throw new Error('User not authenticated');
       
       const { data, error } = await supabase
         .from('notes')
         .insert([{
           notebook_id: notebookId,
+          user_id: user.id,
           title,
           content,
           source_type,

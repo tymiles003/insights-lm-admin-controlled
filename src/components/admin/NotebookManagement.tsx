@@ -51,6 +51,7 @@ export function NotebookManagement() {
         const tagInserts = selectedTags.map(tagId => ({
           notebook_id: notebook.id,
           tag_id: tagId,
+          created_by: user.id,
         }));
 
         const { error: tagError } = await supabase
