@@ -266,15 +266,14 @@ export const useChatMessages = (notebookId?: string) => {
     }) => {
       if (!user) throw new Error('User not authenticated');
 
-      // Use different endpoints based on user role
-      const endpoint = isAdmin ? 'send-chat-message' : 'send-chat-message-with-permissions';
+      // Use the basic endpoint since permission function may not exist
+      const endpoint = 'send-chat-message';
       
       const webhookResponse = await supabase.functions.invoke(endpoint, {
         body: {
           session_id: messageData.notebookId,
           message: messageData.content,
           user_id: user.id,
-          ...(endpoint === 'send-chat-message-with-permissions' && { notebook_id: messageData.notebookId })
         }
       });
 

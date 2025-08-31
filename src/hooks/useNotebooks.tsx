@@ -27,9 +27,11 @@ export const useNotebooks = () => {
       
       console.log('Fetching notebooks for user:', user.id);
       
-      // Use the accessible notebooks function for permission-based filtering
+      // Direct query for notebooks (fallback when function doesn't exist)
       const { data: notebooksData, error: notebooksError } = await supabase
-        .rpc('get_accessible_notebooks');
+        .from('notebooks')
+        .select('*')
+        .order('created_at', { ascending: false });
 
       if (notebooksError) {
         console.error('Error fetching notebooks:', notebooksError);
