@@ -31,57 +31,60 @@ const EmptyDashboard = () => {
   }, []);
 
   return <div className="text-center py-16">
-      <div className="mb-12">
-        <h2 className="text-3xl font-semibold text-slate-800 mb-4 tracking-tight">
+      <div className="mb-16 animate-fade-in-up">
+        <h2 className="text-4xl font-bold text-slate-900 mb-6 tracking-tight font-crimson">
           {isAdmin ? 'Create your first legal research notebook' : 'Welcome to Legal Insights'}
         </h2>
-        <p className="text-lg text-slate-600 max-w-2xl mx-auto font-medium leading-relaxed">
+        <p className="text-xl text-slate-700 max-w-3xl mx-auto font-semibold leading-relaxed">
           {isAdmin 
-            ? 'Legal Insights is an AI-powered legal research platform that analyzes your documents, case law, and legal materials to provide intelligent insights'
-            : 'Browse available research notebooks to explore AI-powered legal analysis and insights'}
+            ? 'Legal Insights is an advanced AI-powered legal research platform that analyzes your documents, case law, and legal materials to provide intelligent insights and comprehensive analysis'
+            : 'Browse available research notebooks to explore AI-powered legal analysis and comprehensive insights'}
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
-        <div className="bg-white rounded-xl border border-slate-200 p-6 text-center legal-shadow hover:legal-shadow-lg transition-all duration-200">
-          <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl mx-auto mb-4 flex items-center justify-center legal-shadow">
-            <FileText className="h-7 w-7 text-white" />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-16 animate-fade-in-up" style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
+        <div className="bg-white rounded-2xl border border-slate-200/60 p-8 text-center legal-shadow-lg legal-hover-lift group">
+          <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl mx-auto mb-6 flex items-center justify-center legal-shadow-lg group-hover:legal-glow transition-all duration-300">
+            <FileText className="h-8 w-8 text-white drop-shadow-sm" />
           </div>
-          <h3 className="text-lg font-semibold text-slate-800 mb-2">Legal Documents</h3>
-          <p className="text-slate-600">Upload contracts, case law, legal briefs, and court documents</p>
+          <h3 className="text-xl font-bold text-slate-900 mb-3 tracking-tight">Legal Documents</h3>
+          <p className="text-slate-600 font-medium leading-relaxed">Upload contracts, case law, legal briefs, and court documents for comprehensive AI analysis</p>
         </div>
 
-        <div className="bg-white rounded-xl border border-slate-200 p-6 text-center legal-shadow hover:legal-shadow-lg transition-all duration-200">
-          <div className="w-14 h-14 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl mx-auto mb-4 flex items-center justify-center legal-shadow">
-            <Globe className="h-7 w-7 text-white" />
+        <div className="bg-white rounded-2xl border border-slate-200/60 p-8 text-center legal-shadow-lg legal-hover-lift group">
+          <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl mx-auto mb-6 flex items-center justify-center legal-shadow-lg group-hover:legal-glow transition-all duration-300">
+            <Globe className="h-8 w-8 text-white drop-shadow-sm" />
           </div>
-          <h3 className="text-lg font-semibold text-slate-800 mb-2">Legal Resources</h3>
-          <p className="text-slate-600">Import legal databases, court websites, and regulatory sources</p>
+          <h3 className="text-xl font-bold text-slate-900 mb-3 tracking-tight">Legal Resources</h3>
+          <p className="text-slate-600 font-medium leading-relaxed">Import legal databases, court websites, and regulatory sources for enhanced research</p>
         </div>
 
-        <div className="bg-white rounded-xl border border-slate-200 p-6 text-center legal-shadow hover:legal-shadow-lg transition-all duration-200">
-          <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl mx-auto mb-4 flex items-center justify-center legal-shadow">
-            <Video className="h-7 w-7 text-white" />
+        <div className="bg-white rounded-2xl border border-slate-200/60 p-8 text-center legal-shadow-lg legal-hover-lift group">
+          <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl mx-auto mb-6 flex items-center justify-center legal-shadow-lg group-hover:legal-glow transition-all duration-300">
+            <Video className="h-8 w-8 text-white drop-shadow-sm" />
           </div>
-          <h3 className="text-lg font-semibold text-slate-800 mb-2">Depositions & Audio</h3>
-          <p className="text-slate-600">Analyze depositions, hearings, and legal proceedings</p>
+          <h3 className="text-xl font-bold text-slate-900 mb-3 tracking-tight">Depositions & Audio</h3>
+          <p className="text-slate-600 font-medium leading-relaxed">Analyze depositions, hearings, and legal proceedings with AI transcription</p>
         </div>
       </div>
 
       {isAdmin && (
         <Button 
           onClick={handleCreateNotebook} 
-          size="lg" 
-          className="bg-slate-800 hover:bg-slate-700 text-white font-semibold px-8 py-4 text-lg legal-shadow-lg transition-all duration-200" 
+          className="legal-button-primary text-white font-bold px-12 py-5 text-xl rounded-2xl legal-hover-lift animate-fade-in-up" 
+          style={{ animationDelay: '0.3s', animationFillMode: 'both' }}
           disabled={isCreating}
         >
-          <Upload className="h-5 w-5 mr-2" />
-          {isCreating ? 'Creating research notebook...' : 'Create legal research notebook'}
+          <Upload className="h-6 w-6 mr-3" />
+          {isCreating ? 'Creating research notebook...' : 'Create Legal Research Notebook'}
         </Button>
       )}
       {!isAdmin && (
-        <div className="bg-white rounded-xl border border-slate-200 p-6 legal-shadow max-w-md mx-auto">
-          <p className="text-slate-600 font-medium">Contact your administrator to request access to specific legal research notebooks.</p>
+        <div className="bg-white rounded-2xl border border-slate-200/60 p-8 legal-shadow-lg max-w-lg mx-auto animate-fade-in-up" style={{ animationDelay: '0.3s', animationFillMode: 'both' }}>
+          <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-amber-600 rounded-xl mx-auto mb-4 flex items-center justify-center">
+            <User className="h-6 w-6 text-white" />
+          </div>
+          <p className="text-slate-700 font-semibold text-lg leading-relaxed">Contact your administrator to request access to specific legal research notebooks and begin your AI-powered legal analysis.</p>
         </div>
       )}
     </div>;

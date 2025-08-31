@@ -118,27 +118,30 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50/80">
       <DashboardHeader userEmail={user?.email} />
       
-      <main className="max-w-7xl mx-auto px-6 py-[60px]">
-        <div className="mb-8 flex justify-between items-center">
+      <main className="max-w-7xl mx-auto px-6 py-16">
+        <div className="mb-12 flex justify-between items-center animate-fade-in-up">
           <div>
-            <h1 className="font-semibold text-slate-800 mb-3 text-5xl tracking-tight">Welcome to Legal Insights</h1>
-            <p className="text-xl text-slate-600 font-medium">Your intelligent legal research companion</p>
+            <h1 className="font-bold text-slate-900 mb-4 text-6xl tracking-tight font-crimson legal-text-shadow">Welcome to Legal Insights</h1>
+            <p className="text-2xl text-slate-700 font-semibold leading-relaxed">Your intelligent legal research companion</p>
+            <p className="text-lg text-slate-600 font-medium mt-2 leading-relaxed">Harness the power of AI to analyze legal documents, case law, and research materials</p>
           </div>
           {isAdmin && (
             <Button 
               onClick={() => setShowAdminPanel(true)}
-              className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-white font-medium px-6 py-3 legal-shadow"
+              className="flex items-center gap-2 legal-button-primary text-white font-semibold px-8 py-4 rounded-xl text-lg legal-hover-lift"
             >
-              <Shield className="h-4 w-4" />
+              <Shield className="h-5 w-5" />
               Admin Panel
             </Button>
           )}
         </div>
 
-        {hasNotebooks ? <NotebookGrid /> : <EmptyDashboard />}
+        <div className="animate-fade-in-up" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
+          {hasNotebooks ? <NotebookGrid /> : <EmptyDashboard />}
+        </div>
       </main>
     </div>
   );

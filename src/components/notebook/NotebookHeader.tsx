@@ -63,15 +63,15 @@ const NotebookHeader = ({ title, notebookId }: NotebookHeaderProps) => {
   };
 
   return (
-    <header className="bg-white border-b border-slate-200 px-6 py-5 legal-shadow">
+    <header className="bg-white/95 backdrop-blur-xl border-b border-slate-200/60 px-6 py-6 legal-shadow sticky top-0 z-50">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-2">
             <button 
               onClick={handleIconClick}
-              className="hover:bg-slate-50 rounded-lg transition-colors p-2"
+              className="hover:bg-slate-50 rounded-xl transition-all duration-200 p-2 legal-hover-lift"
             >
-              <Logo />
+              <Logo size="md" />
             </button>
             {isEditing ? (
               <Input
@@ -79,13 +79,13 @@ const NotebookHeader = ({ title, notebookId }: NotebookHeaderProps) => {
                 onChange={(e) => setEditedTitle(e.target.value)}
                 onKeyDown={handleKeyDown}
                 onBlur={handleBlur}
-                className="text-xl font-semibold text-slate-800 border-none shadow-none p-0 h-auto focus-visible:ring-0 min-w-[300px] w-auto tracking-tight"
+                className="text-2xl font-bold text-slate-900 border-none shadow-none p-0 h-auto focus-visible:ring-0 min-w-[300px] w-auto tracking-tight font-crimson"
                 autoFocus
                 disabled={isUpdating}
               />
             ) : (
               <span 
-                className={`text-xl font-semibold text-slate-800 rounded-lg px-3 py-2 transition-colors tracking-tight ${isAdmin ? 'cursor-pointer hover:bg-slate-50' : ''}`}
+                className={`text-2xl font-bold text-slate-900 rounded-xl px-4 py-3 transition-all duration-200 tracking-tight font-crimson ${isAdmin ? 'cursor-pointer hover:bg-slate-50 legal-hover-lift' : ''}`}
                 onClick={handleTitleClick}
               >
                 {title}
@@ -99,13 +99,13 @@ const NotebookHeader = ({ title, notebookId }: NotebookHeaderProps) => {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="sm" className="p-0">
-                  <div className="w-9 h-9 bg-gradient-to-br from-slate-600 to-slate-700 rounded-lg flex items-center justify-center cursor-pointer hover:from-slate-700 hover:to-slate-800 transition-all duration-200 legal-shadow">
+                  <div className="w-10 h-10 bg-gradient-to-br from-slate-700 to-slate-800 rounded-xl flex items-center justify-center cursor-pointer hover:from-slate-800 hover:to-slate-900 transition-all duration-300 legal-shadow-lg legal-hover-lift border border-white/10">
                     <User className="h-4 w-4 text-white" />
                   </div>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48 legal-shadow">
-                <DropdownMenuItem onClick={logout} className="cursor-pointer text-slate-700 hover:text-slate-900">
+              <DropdownMenuContent align="end" className="w-48 legal-shadow-lg border-slate-200/60">
+                <DropdownMenuItem onClick={logout} className="cursor-pointer text-slate-700 hover:text-slate-900 font-medium">
                   <LogOut className="h-4 w-4 mr-2" />
                   Sign Out
                 </DropdownMenuItem>

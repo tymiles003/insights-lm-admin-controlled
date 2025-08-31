@@ -14,13 +14,13 @@ const DashboardHeader = ({ userEmail }: DashboardHeaderProps) => {
   const { logout } = useLogout();
 
   return (
-    <header className="bg-white px-6 py-5 border-b border-slate-200 legal-shadow">
+    <header className="bg-white/95 backdrop-blur-xl px-6 py-6 border-b border-slate-200/60 legal-shadow sticky top-0 z-50">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2">
-          <Logo />
+          <Logo size="md" className="legal-hover-lift" />
           <div className="flex flex-col">
-            <h1 className="text-xl font-semibold text-slate-800 tracking-tight">Legal Insights</h1>
-            <p className="text-xs text-slate-500 font-medium">Research Platform</p>
+            <h1 className="text-2xl font-bold text-slate-900 tracking-tight font-crimson">Legal Insights</h1>
+            <p className="text-xs text-slate-600 font-semibold uppercase tracking-wider">AI Research Platform</p>
           </div>
         </div>
         
@@ -28,13 +28,13 @@ const DashboardHeader = ({ userEmail }: DashboardHeaderProps) => {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="sm" className="p-0">
-                <div className="w-9 h-9 bg-gradient-to-br from-slate-600 to-slate-700 rounded-lg flex items-center justify-center cursor-pointer hover:from-slate-700 hover:to-slate-800 transition-all duration-200 legal-shadow">
+                <div className="w-10 h-10 bg-gradient-to-br from-slate-700 to-slate-800 rounded-xl flex items-center justify-center cursor-pointer hover:from-slate-800 hover:to-slate-900 transition-all duration-300 legal-shadow-lg legal-hover-lift border border-white/10">
                   <User className="h-4 w-4 text-white" />
                 </div>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-48 legal-shadow">
-              <DropdownMenuItem onClick={logout} className="cursor-pointer text-slate-700 hover:text-slate-900">
+            <DropdownMenuContent align="end" className="w-48 legal-shadow-lg border-slate-200/60">
+              <DropdownMenuItem onClick={logout} className="cursor-pointer text-slate-700 hover:text-slate-900 font-medium">
                 <LogOut className="h-4 w-4 mr-2" />
                 Sign Out
               </DropdownMenuItem>

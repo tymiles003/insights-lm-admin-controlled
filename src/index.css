@@ -2,93 +2,91 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
 @layer base {
   :root {
-    --background: 210 20% 98%;
-    --foreground: 215 25% 15%;
+    --background: 220 15% 97%;
+    --foreground: 220 25% 12%;
 
     --card: 0 0% 100%;
-    --card-foreground: 215 25% 15%;
+    --card-foreground: 220 25% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 15%;
+    --popover-foreground: 220 25% 12%;
 
-    --primary: 215 25% 15%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 220 30% 15%;
+    --primary-foreground: 220 15% 98%;
 
-    --secondary: 215 20% 95%;
-    --secondary-foreground: 215 25% 15%;
+    --secondary: 220 15% 95%;
+    --secondary-foreground: 220 25% 12%;
 
-    --muted: 215 20% 95%;
-    --muted-foreground: 215 15% 45%;
+    --muted: 220 15% 94%;
+    --muted-foreground: 220 12% 45%;
 
-    --accent: 215 20% 92%;
-    --accent-foreground: 215 25% 15%;
+    --accent: 220 15% 92%;
+    --accent-foreground: 220 25% 12%;
 
-    --destructive: 0 75% 55%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 220 15% 98%;
 
-    --border: 215 20% 88%;
-    --input: 215 20% 88%;
-    --ring: 215 25% 15%;
+    --border: 220 15% 88%;
+    --input: 220 15% 88%;
+    --ring: 220 30% 15%;
 
     --radius: 0.5rem;
 
-    --sidebar-background: 215 25% 97%;
-
-    --sidebar-foreground: 215 20% 25%;
-
-    --sidebar-primary: 215 25% 15%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 215 20% 92%;
-
-    --sidebar-accent-foreground: 215 25% 15%;
-
-    --sidebar-border: 215 20% 88%;
-
-    --sidebar-ring: 215 25% 15%;
+    --sidebar-background: 220 15% 97%;
+    --sidebar-foreground: 220 20% 25%;
+    --sidebar-primary: 220 30% 15%;
+    --sidebar-primary-foreground: 220 15% 98%;
+    --sidebar-accent: 220 15% 92%;
+    --sidebar-accent-foreground: 220 25% 12%;
+    --sidebar-border: 220 15% 88%;
+    --sidebar-ring: 220 30% 15%;
+    
+    /* Legal-specific color variables */
+    --legal-primary: 220 30% 15%;
+    --legal-secondary: 39 100% 50%;
+    --legal-accent: 220 15% 92%;
+    --legal-surface: 220 15% 98%;
+    --legal-border: 220 15% 85%;
   }
 
   .dark {
-    --background: 215 30% 8%;
-    --foreground: 210 40% 98%;
+    --background: 220 30% 8%;
+    --foreground: 220 15% 98%;
 
-    --card: 215 30% 10%;
-    --card-foreground: 210 40% 98%;
+    --card: 220 30% 10%;
+    --card-foreground: 220 15% 98%;
 
-    --popover: 215 30% 10%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 220 30% 10%;
+    --popover-foreground: 220 15% 98%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 215 30% 8%;
+    --primary: 220 15% 98%;
+    --primary-foreground: 220 30% 8%;
 
-    --secondary: 215 25% 15%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 220 25% 15%;
+    --secondary-foreground: 220 15% 98%;
 
-    --muted: 215 25% 15%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 220 25% 15%;
+    --muted-foreground: 220 20% 65%;
 
-    --accent: 215 25% 18%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 220 25% 18%;
+    --accent-foreground: 220 15% 98%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 65% 35%;
+    --destructive-foreground: 220 15% 98%;
 
-    --border: 215 25% 18%;
-    --input: 215 25% 18%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 215 30% 8%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 215 25% 15%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 215 25% 15%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 215 25% 18%;
-    --sidebar-ring: 215 25% 15%;
+    --border: 220 25% 18%;
+    --input: 220 25% 18%;
+    --ring: 220 30% 85%;
+    --sidebar-background: 220 30% 8%;
+    --sidebar-foreground: 220 15% 96%;
+    --sidebar-primary: 220 25% 15%;
+    --sidebar-primary-foreground: 220 15% 100%;
+    --sidebar-accent: 220 25% 15%;
+    --sidebar-accent-foreground: 220 15% 96%;
+    --sidebar-border: 220 25% 18%;
+    --sidebar-ring: 220 25% 15%;
   }
 }
 
@@ -98,32 +96,127 @@
   }
 
   body {
-    @apply bg-background text-foreground font-inter;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
-    letter-spacing: -0.01em;
+    @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11', 'ss01', 'ss02';
+    letter-spacing: -0.015em;
+    font-optical-sizing: auto;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   
   h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1.2;
+  }
+  
+  h1 {
+    font-family: 'Crimson Text', Georgia, serif;
     font-weight: 600;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.02em;
   }
   
   .legal-gradient {
-    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 75%, #475569 100%);
+    position: relative;
+  }
+  
+  .legal-gradient::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(251, 191, 36, 0.08) 0%, transparent 50%);
+    pointer-events: none;
   }
   
   .legal-card {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(148, 163, 184, 0.2);
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    box-shadow: 0 8px 32px rgba(15, 23, 42, 0.08), 
+                0 1px 3px rgba(15, 23, 42, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
   }
   
   .legal-shadow {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.08), 
+                0 2px 6px -1px rgba(15, 23, 42, 0.06),
+                0 1px 3px rgba(15, 23, 42, 0.1);
   }
   
   .legal-shadow-lg {
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.1), 
+                0 10px 15px -3px rgba(15, 23, 42, 0.08),
+                0 4px 6px -2px rgba(15, 23, 42, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  
+  .legal-shadow-xl {
+    box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.15),
+                0 10px 20px -5px rgba(15, 23, 42, 0.1),
+                0 4px 8px -2px rgba(15, 23, 42, 0.08);
+  }
+  
+  .legal-glow {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.15),
+                0 0 40px rgba(59, 130, 246, 0.1);
+  }
+  
+  .legal-text-shadow {
+    text-shadow: 0 2px 4px rgba(15, 23, 42, 0.1);
+  }
+  
+  .legal-border-gradient {
+    border-image: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(251, 191, 36, 0.2)) 1;
+  }
+  
+  .legal-hover-lift {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .legal-hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.15),
+                0 10px 20px -5px rgba(15, 23, 42, 0.1);
+  }
+  
+  .legal-glass {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .legal-surface {
+    background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+  }
+  
+  .legal-button-primary {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .legal-button-primary:hover {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
+  }
+  
+  .legal-input-focus {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .legal-input-focus:focus {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1),
+                0 4px 12px rgba(15, 23, 42, 0.08);
+    border-color: hsl(220 30% 15%);
   }
 }

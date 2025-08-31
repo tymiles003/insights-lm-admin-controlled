@@ -112,19 +112,22 @@ const AuthForm = () => {
   };
 
   return (
-    <Card className="w-full max-w-md mx-auto legal-card legal-shadow-lg border-0">
+    <Card className="w-full max-w-md mx-auto legal-card legal-shadow-xl border-0 relative overflow-hidden">
+      {/* Subtle inner glow */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white/50 via-transparent to-blue-50/30 pointer-events-none"></div>
+      
       <CardHeader>
-        <CardTitle className="text-2xl font-semibold text-center text-slate-800">
+        <CardTitle className="text-2xl font-bold text-center text-slate-900 tracking-tight">
           {isSignUp ? 'Create Account' : 'Welcome Back'}
         </CardTitle>
-        <CardDescription className="text-center text-slate-600">
-          {isSignUp ? 'Join Legal Insights to access powerful research tools' : 'Sign in to access your legal research workspace'}
+        <CardDescription className="text-center text-slate-600 font-medium leading-relaxed">
+          {isSignUp ? 'Join Legal Insights to access powerful AI-driven legal research tools' : 'Sign in to access your comprehensive legal research workspace'}
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="relative">
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="email" className="text-slate-700 font-medium">Email Address</Label>
+            <Label htmlFor="email" className="text-slate-800 font-semibold text-sm">Email Address</Label>
             <Input
               id="email"
               type="email"
@@ -132,11 +135,11 @@ const AuthForm = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
               placeholder="Enter your email address"
-              className="h-11 border-slate-200 focus:border-slate-400 focus:ring-slate-400"
+              className="h-12 border-slate-200 focus:border-slate-800 focus:ring-slate-800/20 legal-input-focus rounded-lg font-medium"
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="password" className="text-slate-700 font-medium">Password</Label>
+            <Label htmlFor="password" className="text-slate-800 font-semibold text-sm">Password</Label>
             <Input
               id="password"
               type="password"
@@ -145,22 +148,29 @@ const AuthForm = () => {
               required
               placeholder="Enter your password"
               minLength={6}
-              className="h-11 border-slate-200 focus:border-slate-400 focus:ring-slate-400"
+              className="h-12 border-slate-200 focus:border-slate-800 focus:ring-slate-800/20 legal-input-focus rounded-lg font-medium"
             />
           </div>
           <Button 
             type="submit" 
-            className="w-full h-11 bg-slate-800 hover:bg-slate-700 text-white font-medium tracking-wide transition-all duration-200 legal-shadow" 
+            className="w-full h-12 legal-button-primary text-white font-semibold tracking-wide rounded-lg" 
             disabled={loading}
           >
-            {loading ? (isSignUp ? 'Creating Account...' : 'Signing In...') : (isSignUp ? 'Create Account' : 'Sign In')}
+            {loading ? (
+              <div className="flex items-center justify-center space-x-2">
+                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                <span>{isSignUp ? 'Creating Account...' : 'Signing In...'}</span>
+              </div>
+            ) : (
+              isSignUp ? 'Create Account' : 'Sign In'
+            )}
           </Button>
           <div className="text-center mt-4">
             <Button
               type="button"
               variant="link"
               onClick={() => setIsSignUp(!isSignUp)}
-              className="text-sm text-slate-600 hover:text-slate-800 font-medium"
+              className="text-sm text-slate-600 hover:text-slate-900 font-semibold transition-colors"
             >
               {isSignUp ? 'Already have an account? Sign in' : "Don't have an account? Sign up"}
             </Button>

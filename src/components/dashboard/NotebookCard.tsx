@@ -47,26 +47,29 @@ const NotebookCard = ({
   const borderClass = `border-${colorName}-200`;
 
   return <div 
-      className={`rounded-xl border ${borderClass} ${backgroundClass} p-6 hover:legal-shadow-lg transition-all duration-200 cursor-pointer relative h-52 flex flex-col legal-shadow`}
+      className={`rounded-2xl border ${borderClass} ${backgroundClass} p-8 hover:legal-shadow-xl transition-all duration-300 cursor-pointer relative h-60 flex flex-col legal-shadow-lg legal-hover-lift group overflow-hidden`}
     >
+      {/* Subtle gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-black/5 pointer-events-none"></div>
+      
       {isAdmin && (
-        <div className="absolute top-3 right-3" data-delete-action="true">
+        <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200" data-delete-action="true">
           <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
             <AlertDialogTrigger asChild>
-              <button onClick={handleDeleteClick} className="p-2 hover:bg-red-50 rounded-lg text-slate-400 hover:text-red-500 transition-colors delete-button" disabled={isDeleting} data-delete-action="true">
-                <Trash2 className="h-4 w-4" />
+              <button onClick={handleDeleteClick} className="p-2 hover:bg-red-50 rounded-xl text-slate-400 hover:text-red-600 transition-all duration-200 delete-button legal-shadow" disabled={isDeleting} data-delete-action="true">
+                <Trash2 className="h-5 w-5" />
               </button>
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Delete this research notebook?</AlertDialogTitle>
+                <AlertDialogTitle className="font-bold text-slate-900">Delete this research notebook?</AlertDialogTitle>
                 <AlertDialogDescription>
-                  You're about to delete this legal research notebook and all of its content. This action cannot be undone.
+                  You're about to permanently delete this legal research notebook and all of its content. This action cannot be undone.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction onClick={handleConfirmDelete} className="bg-red-600 hover:bg-red-700" disabled={isDeleting}>
+                <AlertDialogCancel className="font-semibold">Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={handleConfirmDelete} className="bg-red-600 hover:bg-red-700 font-semibold" disabled={isDeleting}>
                   {isDeleting ? 'Deleting...' : 'Delete'}
                 </AlertDialogAction>
               </AlertDialogFooter>
@@ -75,15 +78,15 @@ const NotebookCard = ({
         </div>
       )}
       
-      <div className="w-14 h-14 rounded-xl bg-white/50 backdrop-blur-sm flex items-center justify-center mb-4 legal-shadow">
-        <span className="text-3xl">{notebook.icon}</span>
+      <div className="w-16 h-16 rounded-2xl bg-white/60 backdrop-blur-sm flex items-center justify-center mb-6 legal-shadow-lg border border-white/20 relative z-10">
+        <span className="text-4xl drop-shadow-sm">{notebook.icon}</span>
       </div>
       
-      <h3 className="text-slate-800 mb-3 pr-6 line-clamp-2 text-xl font-semibold flex-grow leading-tight">
+      <h3 className="text-slate-900 mb-4 pr-8 line-clamp-2 text-2xl font-bold flex-grow leading-tight tracking-tight relative z-10">
         {notebook.title}
       </h3>
       
-      <div className="flex items-center justify-between text-sm text-slate-500 mt-auto font-medium">
+      <div className="flex items-center justify-between text-sm text-slate-600 mt-auto font-semibold relative z-10">
         <span>{notebook.date} • {notebook.sources} document{notebook.sources !== 1 ? 's' : ''}</span>
       </div>
     </div>;

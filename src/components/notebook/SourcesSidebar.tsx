@@ -229,10 +229,10 @@ const SourcesSidebar = ({
   }
 
   return (
-    <div className="w-full bg-slate-50 border-r border-slate-200 flex flex-col h-full overflow-hidden">
-      <div className="p-4 border-b border-slate-200 flex-shrink-0 bg-white">
+    <div className="w-full bg-gradient-to-b from-slate-50/80 to-white border-r border-slate-200/60 flex flex-col h-full overflow-hidden">
+      <div className="p-6 border-b border-slate-200/60 flex-shrink-0 bg-white/95 backdrop-blur-xl">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-slate-800 tracking-tight">Legal Documents</h2>
+          <h2 className="text-xl font-bold text-slate-900 tracking-tight">Legal Documents</h2>
         </div>
         
         {isAdmin && (
@@ -240,7 +240,7 @@ const SourcesSidebar = ({
             <Button 
               variant="outline" 
               size="sm" 
-              className="flex-1 border-slate-300 text-slate-700 hover:bg-slate-100 font-medium rounded-lg" 
+              className="flex-1 border-slate-300/60 text-slate-800 hover:bg-slate-100 font-semibold rounded-xl legal-shadow legal-hover-lift" 
               onClick={() => setShowAddSourcesDialog(true)}
             >
               <Plus className="h-4 w-4 mr-2" />
@@ -249,31 +249,31 @@ const SourcesSidebar = ({
           </div>
         )}
         {!isAdmin && (
-          <div className="text-sm text-slate-600 mb-4 font-medium">
+          <div className="text-sm text-slate-700 mb-4 font-semibold">
             Contact your administrator to add legal documents to this research notebook.
           </div>
         )}
       </div>
 
       <ScrollArea className="flex-1 h-full">
-        <div className="p-4">
+        <div className="p-6">
           {isLoading ? (
             <div className="text-center py-8">
-              <p className="text-sm text-slate-600 font-medium">Loading legal documents...</p>
+              <p className="text-sm text-slate-700 font-semibold">Loading legal documents...</p>
             </div>
           ) : sources && sources.length > 0 ? (
             <div className="space-y-4">
               {sources.map((source) => (
                 <ContextMenu key={source.id}>
                   <ContextMenuTrigger>
-                    <Card className="p-4 border border-slate-200 cursor-pointer hover:bg-white transition-all duration-200 rounded-xl legal-shadow" onClick={() => handleSourceClick(source)}>
+                    <Card className="p-5 border border-slate-200/60 cursor-pointer hover:bg-white transition-all duration-300 rounded-2xl legal-shadow-lg legal-hover-lift group" onClick={() => handleSourceClick(source)}>
                       <div className="flex items-start justify-between space-x-3">
                         <div className="flex items-center space-x-2 flex-1 min-w-0">
-                          <div className="w-7 h-7 bg-white rounded-lg border border-slate-200 flex items-center justify-center flex-shrink-0 overflow-hidden legal-shadow">
+                          <div className="w-8 h-8 bg-white rounded-xl border border-slate-200/60 flex items-center justify-center flex-shrink-0 overflow-hidden legal-shadow group-hover:legal-glow transition-all duration-300">
                             {renderSourceIcon(source.type)}
                           </div>
                           <div className="flex-1 min-w-0">
-                            <span className="text-sm text-slate-800 truncate block font-medium">{source.title}</span>
+                            <span className="text-sm text-slate-900 truncate block font-semibold">{source.title}</span>
                           </div>
                         </div>
                         <div className="flex-shrink-0 py-[4px]">
@@ -282,14 +282,14 @@ const SourcesSidebar = ({
                       </div>
                     </Card>
                   </ContextMenuTrigger>
-                  <ContextMenuContent className="legal-shadow">
+                  <ContextMenuContent className="legal-shadow-lg border-slate-200/60">
                     {isAdmin && (
                       <>
-                        <ContextMenuItem onClick={() => handleRenameSource(source)} className="text-slate-700">
+                        <ContextMenuItem onClick={() => handleRenameSource(source)} className="text-slate-800 font-medium">
                           <Edit className="h-4 w-4 mr-2" />
                           Rename document
                         </ContextMenuItem>
-                        <ContextMenuItem onClick={() => handleRemoveSource(source)} className="text-red-600 focus:text-red-600">
+                        <ContextMenuItem onClick={() => handleRemoveSource(source)} className="text-red-600 focus:text-red-600 font-medium">
                           <Trash2 className="h-4 w-4 mr-2" />
                           Remove document
                         </ContextMenuItem>
@@ -297,7 +297,7 @@ const SourcesSidebar = ({
                     )}
                     {!isAdmin && (
                       <ContextMenuItem disabled>
-                        <span className="text-slate-500">Admin access required</span>
+                        <span className="text-slate-500 font-medium">Admin access required</span>
                       </ContextMenuItem>
                     )}
                   </ContextMenuContent>
@@ -306,11 +306,11 @@ const SourcesSidebar = ({
             </div>
           ) : (
             <div className="text-center py-8">
-              <div className="w-16 h-16 bg-slate-200 rounded-xl mx-auto mb-4 flex items-center justify-center">
-                <span className="text-slate-400 text-2xl">⚖️</span>
+              <div className="w-20 h-20 bg-slate-200 rounded-2xl mx-auto mb-6 flex items-center justify-center legal-shadow">
+                <span className="text-slate-500 text-3xl">⚖️</span>
               </div>
               <div className="text-sm text-muted-foreground">
-                <p className="text-sm text-slate-600 mb-4 font-medium">Click Add Documents above to upload legal PDFs, contracts, or case files.</p>
+                <p className="text-sm text-slate-700 mb-4 font-semibold leading-relaxed">Click Add Documents above to upload legal PDFs, contracts, or case files.</p>
               </div>
             </div>
           )}
