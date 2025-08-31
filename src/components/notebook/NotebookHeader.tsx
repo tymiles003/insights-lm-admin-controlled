@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { User, LogOut } from 'lucide-react';
+import { User, LogOut, CreditCard } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useNotebookUpdate } from '@/hooks/useNotebookUpdate';
 import { useProfile } from '@/hooks/useProfile';
@@ -105,6 +105,10 @@ const NotebookHeader = ({ title, notebookId }: NotebookHeaderProps) => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48 legal-shadow-lg border-slate-200/60">
+                <DropdownMenuItem onClick={() => navigate('/pricing')} className="cursor-pointer text-slate-700 hover:text-slate-900 font-medium">
+                  <CreditCard className="h-4 w-4 mr-2" />
+                  Subscription
+                </DropdownMenuItem>
                 <DropdownMenuItem onClick={logout} className="cursor-pointer text-slate-700 hover:text-slate-900 font-medium">
                   <LogOut className="h-4 w-4 mr-2" />
                   Sign Out

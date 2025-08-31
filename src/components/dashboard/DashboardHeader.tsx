@@ -1,8 +1,9 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { User, LogOut } from 'lucide-react';
+import { User, LogOut, CreditCard } from 'lucide-react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { useNavigate } from 'react-router-dom';
 import { useLogout } from '@/services/authService';
 import Logo from '@/components/ui/Logo';
 
@@ -12,6 +13,7 @@ interface DashboardHeaderProps {
 
 const DashboardHeader = ({ userEmail }: DashboardHeaderProps) => {
   const { logout } = useLogout();
+  const navigate = useNavigate();
 
   return (
     <header className="bg-white/95 backdrop-blur-xl px-6 py-6 border-b border-slate-200/60 legal-shadow sticky top-0 z-50">
@@ -34,6 +36,10 @@ const DashboardHeader = ({ userEmail }: DashboardHeaderProps) => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-48 legal-shadow-lg border-slate-200/60">
+              <DropdownMenuItem onClick={() => navigate('/pricing')} className="cursor-pointer text-slate-700 hover:text-slate-900 font-medium">
+                <CreditCard className="h-4 w-4 mr-2" />
+                Subscription
+              </DropdownMenuItem>
               <DropdownMenuItem onClick={logout} className="cursor-pointer text-slate-700 hover:text-slate-900 font-medium">
                 <LogOut className="h-4 w-4 mr-2" />
                 Sign Out

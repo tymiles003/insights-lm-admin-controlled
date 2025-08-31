@@ -8,12 +8,17 @@ import { useNotebooks } from '@/hooks/useNotebooks';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProfile } from '@/hooks/useProfile';
 import { Button } from '@/components/ui/button';
-import { Shield } from 'lucide-react';
+import { Shield, Crown } from 'lucide-react';
+import { SubscriptionCard } from '@/components/stripe/SubscriptionCard';
+import { useStripe } from '@/hooks/useStripe';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
   const { user, loading: authLoading, error: authError } = useAuth();
   const { notebooks, isLoading, error, isError } = useNotebooks();
   const { isAdmin, isLoading: profileLoading } = useProfile();
+  const { subscription } = useStripe();
+  const navigate = useNavigate();
   const [showAdminPanel, setShowAdminPanel] = React.useState(false);
   const hasNotebooks = notebooks && notebooks.length > 0;
 
@@ -125,21 +130,44 @@ const Dashboard = () => {
         <div className="mb-12 flex justify-between items-center animate-fade-in-up">
           <div>
             <h1 className="font-bold text-slate-900 mb-4 text-6xl tracking-tight font-crimson legal-text-shadow">Welcome to Legal Insights</h1>
+            {subscription && (
+              <div className="flex items-center space-x-2 mb-2">
+                <Crown className="h-5 w-5 text-amber-500" />
+                <span className="text-lg font-semibold text-slate-700">
+                  {subscription.subscription_status === 'active' ? 'Premium Subscriber' : `Status: ${subscription.subscription_status}`}
+                </span>
+              </div>
+            )}
             <p className="text-2xl text-slate-700 font-semibold leading-relaxed">Your intelligent legal research companion</p>
             <p className="text-lg text-slate-600 font-medium mt-2 leading-relaxed">Harness the power of AI to analyze legal documents, case law, and research materials</p>
           </div>
-          {isAdmin && (
+          <div className="flex flex-col space-y-3">
+            {isAdmin && (
+              <Button 
+                onClick={() => setShowAdminPanel(true)}
+                className="flex items-center gap-2 legal-button-primary text-white font-semibold px-8 py-4 rounded-xl text-lg legal-hover-lift"
+              >
+                <Shield className="h-5 w-5" />
+                Admin Panel
+              </Button>
+            )}
             <Button 
-              onClick={() => setShowAdminPanel(true)}
-              className="flex items-center gap-2 legal-button-primary text-white font-semibold px-8 py-4 rounded-xl text-lg legal-hover-lift"
+              variant="outline"
+              onClick={() => navigate('/pricing')}
+              className="flex items-center gap-2 border-slate-300 text-slate-700 hover:bg-slate-100 font-semibold px-8 py-4 rounded-xl text-lg"
             >
-              <Shield className="h-5 w-5" />
-              Admin Panel
+              <Crown className="h-5 w-5" />
+              Subscription
             </Button>
-          )}
+          </div>
         </div>
 
         <div className="animate-fade-in-up" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
+          {/* Subscription Status Card */}
+          <div className="mb-8">
+            <SubscriptionCard />
+          </div>
+          
           {hasNotebooks ? <NotebookGrid /> : <EmptyDashboard />}
         </div>
       </main>
