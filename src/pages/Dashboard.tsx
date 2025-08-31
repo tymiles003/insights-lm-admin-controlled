@@ -13,12 +13,12 @@ import { Shield } from 'lucide-react';
 const Dashboard = () => {
   const { user, loading: authLoading, error: authError } = useAuth();
   const { notebooks, isLoading, error, isError } = useNotebooks();
-  const { isAdmin, profile } = useProfile();
+  const { isAdmin, isLoading: profileLoading } = useProfile();
   const [showAdminPanel, setShowAdminPanel] = React.useState(false);
   const hasNotebooks = notebooks && notebooks.length > 0;
 
   // Show loading while auth is initializing
-  if (authLoading) {
+  if (authLoading || profileLoading) {
     return (
       <div className="min-h-screen bg-gray-50">
         <DashboardHeader userEmail={user?.email} />

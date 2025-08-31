@@ -28,6 +28,7 @@ const NotebookHeader = ({ title, notebookId }: NotebookHeaderProps) => {
   const { isAdmin } = useProfile();
 
   const handleTitleClick = () => {
+    // Only allow editing if user is admin
     if (notebookId && isAdmin) {
       setIsEditing(true);
       setEditedTitle(title);
@@ -35,7 +36,7 @@ const NotebookHeader = ({ title, notebookId }: NotebookHeaderProps) => {
   };
 
   const handleTitleSubmit = () => {
-    if (notebookId && editedTitle.trim() && editedTitle !== title) {
+    if (notebookId && editedTitle.trim() && editedTitle !== title && isAdmin) {
       updateNotebook({
         id: notebookId,
         updates: { title: editedTitle.trim() }

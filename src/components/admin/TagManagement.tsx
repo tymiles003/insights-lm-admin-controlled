@@ -46,6 +46,11 @@ export function TagManagement() {
 
   const createTag = useMutation({
     mutationFn: async (tagData: typeof formData) => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        throw new Error('User not authenticated');
+      }
+
       const { error } = await supabase
         .from('tags')
         .insert({
@@ -53,6 +58,7 @@ export function TagManagement() {
           type: tagData.type,
           description: tagData.description || null,
           color: tagData.color,
+          created_by: user.id,
         });
       
       if (error) throw error;

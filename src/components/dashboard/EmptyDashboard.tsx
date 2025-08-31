@@ -4,6 +4,7 @@ import { Upload, FileText, Globe, Video, Mic } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useNotebooks } from '@/hooks/useNotebooks';
 import { useProfile } from '@/hooks/useProfile';
+
 const EmptyDashboard = () => {
   const navigate = useNavigate();
   const {
@@ -11,6 +12,7 @@ const EmptyDashboard = () => {
     isCreating
   } = useNotebooks();
   const { isAdmin } = useProfile();
+
   const handleCreateNotebook = () => {
     console.log('Create notebook button clicked');
     console.log('isCreating:', isCreating);
@@ -27,6 +29,7 @@ const EmptyDashboard = () => {
       }
     });
   };
+
   return <div className="text-center py-16">
       <div className="mb-12">
         <h2 className="text-3xl font-medium text-gray-900 mb-4">

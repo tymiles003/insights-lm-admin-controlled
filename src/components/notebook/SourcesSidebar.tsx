@@ -243,6 +243,11 @@ const SourcesSidebar = ({
             </Button>
           </div>
         )}
+        {!isAdmin && (
+          <div className="text-sm text-muted-foreground mb-4">
+            Contact your administrator to add sources to this notebook.
+          </div>
+        )}
       </div>
 
       <ScrollArea className="flex-1 h-full">

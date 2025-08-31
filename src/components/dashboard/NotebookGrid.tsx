@@ -40,6 +40,11 @@ const NotebookGrid = () => {
   }, [notebooks, sortBy]);
 
   const handleCreateNotebook = () => {
+    if (!isAdmin) {
+      console.error('Only admins can create notebooks');
+      return;
+    }
+
     createNotebook({
       title: 'Untitled notebook',
       description: ''

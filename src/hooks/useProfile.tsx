@@ -18,12 +18,17 @@ export function useProfile() {
       
       if (error) {
         console.error('Error fetching profile:', error);
+        // If profile doesn't exist, return null instead of throwing
+        if (error.code === 'PGRST116') {
+          return null;
+        }
         throw error;
       }
       
       return data;
     },
     enabled: !!user,
+    retry: false, // Don't retry on profile fetch errors
   });
 
   return {

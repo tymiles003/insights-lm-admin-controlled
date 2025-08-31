@@ -4,8 +4,29 @@ import { NotebookManagement } from "./NotebookManagement";
 import { TagManagement } from "./TagManagement";
 import { UserPermissions } from "./UserPermissions";
 import { Shield, Tags, Users, FolderOpen } from "lucide-react";
+import { useProfile } from "@/hooks/useProfile";
 
 export function AdminDashboard() {
+  const { isAdmin, isLoading } = useProfile();
+
+  if (isLoading) {
+    return <div className="container mx-auto p-6 max-w-7xl">
+      <div className="text-center py-8">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+        <p className="text-gray-600">Loading...</p>
+      </div>
+    </div>;
+  }
+
+  if (!isAdmin) {
+    return <div className="container mx-auto p-6 max-w-7xl">
+      <div className="text-center py-8">
+        <h1 className="text-2xl font-bold text-red-600 mb-4">Access Denied</h1>
+        <p className="text-gray-600">You need administrator privileges to access this page.</p>
+      </div>
+    </div>;
+  }
+
   return (
     <div className="container mx-auto p-6 max-w-7xl">
       <div className="mb-8">

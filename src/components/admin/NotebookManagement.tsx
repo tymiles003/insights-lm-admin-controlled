@@ -28,13 +28,18 @@ export function NotebookManagement() {
     }
 
     try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        throw new Error('User not authenticated');
+      }
+
       // Create the notebook with is_public flag
       const { data: notebook, error: createError } = await supabase
         .from('notebooks')
         .insert({
           title: newNotebookName,
           is_public: isPublic,
-          user_id: (await supabase.auth.getUser()).data.user?.id,
+          user_id: user.id,
         })
         .select()
         .single();

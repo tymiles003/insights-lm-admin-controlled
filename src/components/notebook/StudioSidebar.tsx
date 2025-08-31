@@ -7,6 +7,7 @@ import { useNotes, Note } from '@/hooks/useNotes';
 import { useAudioOverview } from '@/hooks/useAudioOverview';
 import { useNotebooks } from '@/hooks/useNotebooks';
 import { useSources } from '@/hooks/useSources';
+import { useProfile } from '@/hooks/useProfile';
 import { useQueryClient } from '@tanstack/react-query';
 import NoteEditor from './NoteEditor';
 import AudioPlayer from './AudioPlayer';
@@ -26,6 +27,8 @@ const StudioSidebar = ({
   const [editingNote, setEditingNote] = useState<Note | null>(null);
   const [isCreatingNote, setIsCreatingNote] = useState(false);
   const [audioError, setAudioError] = useState(false);
+  const { isAdmin } = useProfile();
+
   const {
     notes,
     isLoading,
@@ -270,11 +273,16 @@ const StudioSidebar = ({
                 </div>}
               
               <div className="flex space-x-2">
-                <Button size="sm" onClick={handleGenerateAudio} disabled={isGenerating || currentStatus === 'generating' || !hasProcessedSource || isAutoRefreshing} className="flex-1 text-white bg-slate-900 hover:bg-slate-800">
+                <Button 
+                  size="sm" 
+                  onClick={handleGenerateAudio} 
+                  disabled={isGenerating || currentStatus === 'generating' || !hasProcessedSource || isAutoRefreshing || !isAdmin} 
+                  className="flex-1 text-white bg-slate-900 hover:bg-slate-800"
+                >
                   {isGenerating || currentStatus === 'generating' ? <>
                       <Loader2 className="h-4 w-4 mr-2 animate-spin" />
                       Generating...
-                    </> : 'Generate'}
+                    </> : isAdmin ? 'Generate' : 'Admin Only'}
                 </Button>
               </div>
             </Card>}

@@ -264,7 +264,7 @@ export const useChatMessages = (notebookId?: string) => {
     }) => {
       if (!user) throw new Error('User not authenticated');
 
-      // Call the n8n webhook with permissions check
+      // Use the permission-aware chat endpoint
       const webhookResponse = await supabase.functions.invoke('send-chat-message-with-permissions', {
         body: {
           session_id: messageData.notebookId,
@@ -275,6 +275,10 @@ export const useChatMessages = (notebookId?: string) => {
       });
 
       if (webhookResponse.error) {
+        // Handle permission denied errors specifically
+        if (webhookResponse.error.message?.includes('Access denied')) {
+          throw new Error('You do not have permission to access this notebook');
+        }
         throw new Error(`Webhook error: ${webhookResponse.error.message}`);
       }
 

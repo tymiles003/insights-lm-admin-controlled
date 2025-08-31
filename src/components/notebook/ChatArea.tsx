@@ -10,6 +10,7 @@ import { useSources } from '@/hooks/useSources';
 import MarkdownRenderer from '@/components/chat/MarkdownRenderer';
 import SaveToNoteButton from './SaveToNoteButton';
 import AddSourcesDialog from './AddSourcesDialog';
+import { useProfile } from '@/hooks/useProfile';
 import { Citation } from '@/types/message';
 
 interface ChatAreaProps {
@@ -39,6 +40,7 @@ const ChatArea = ({
   const [showAddSourcesDialog, setShowAddSourcesDialog] = useState(false);
   
   const isGenerating = notebook?.generation_status === 'generating';
+  const { isAdmin } = useProfile();
   
   const {
     messages,
@@ -283,10 +285,14 @@ const ChatArea = ({
               <Upload className="h-8 w-8 text-slate-600" />
             </div>
             <h2 className="text-xl font-medium text-gray-900 mb-4">Add a source to get started</h2>
-            <Button onClick={() => setShowAddSourcesDialog(true)}>
-              <Upload className="h-4 w-4 mr-2" />
-              Upload a source
-            </Button>
+            {isAdmin ? (
+              <Button onClick={() => setShowAddSourcesDialog(true)}>
+                <Upload className="h-4 w-4 mr-2" />
+                Upload a source
+              </Button>
+            ) : (
+              <p className="text-gray-600">Contact your administrator to add sources to this notebook.</p>
+            )}
           </div>
 
           {/* Bottom Input */}

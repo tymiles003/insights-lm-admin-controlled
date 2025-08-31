@@ -88,11 +88,17 @@ export function UserPermissions() {
         throw new Error('Please select both user and tag');
       }
 
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        throw new Error('User not authenticated');
+      }
+
       const { error } = await supabase
         .from('user_permissions')
         .insert({
           user_id: selectedUserId,
           tag_id: selectedTagId,
+          granted_by: user.id,
           expires_at: expiresAt?.toISOString() || null,
         });
       

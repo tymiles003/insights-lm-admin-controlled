@@ -9,6 +9,7 @@ import { useFileUpload } from '@/hooks/useFileUpload';
 import { useDocumentProcessing } from '@/hooks/useDocumentProcessing';
 import { useNotebookGeneration } from '@/hooks/useNotebookGeneration';
 import { useToast } from '@/hooks/use-toast';
+import { useProfile } from '@/hooks/useProfile';
 import { supabase } from '@/integrations/supabase/client';
 
 interface AddSourcesDialogProps {
@@ -26,6 +27,7 @@ const AddSourcesDialog = ({
   const [showCopiedTextDialog, setShowCopiedTextDialog] = useState(false);
   const [showMultipleWebsiteDialog, setShowMultipleWebsiteDialog] = useState(false);
   const [isLocallyProcessing, setIsLocallyProcessing] = useState(false);
+  const { isAdmin } = useProfile();
 
   const {
     addSourceAsync,
@@ -58,6 +60,11 @@ const AddSourcesDialog = ({
       setIsLocallyProcessing(false);
     }
   }, [open]);
+
+  // Only allow admins to use this dialog
+  if (!isAdmin) {
+    return null;
+  }
 
   const handleDrag = useCallback((e: React.DragEvent) => {
     e.preventDefault();

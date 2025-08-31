@@ -3,9 +3,11 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
+import { useProfile } from '@/hooks/useProfile';
 
 export const useNotebooks = () => {
   const { user, isAuthenticated, loading: authLoading } = useAuth();
+  const { isAdmin } = useProfile();
   const queryClient = useQueryClient();
 
   const {
@@ -23,12 +25,9 @@ export const useNotebooks = () => {
       
       console.log('Fetching notebooks for user:', user.id);
       
-      // First get the notebooks
+      // Use the accessible notebooks function for permission-based filtering
       const { data: notebooksData, error: notebooksError } = await supabase
-        .from('notebooks')
-        .select('*')
-        .eq('user_id', user.id)
-        .order('updated_at', { ascending: false });
+        .rpc('get_accessible_notebooks');
 
       if (notebooksError) {
         console.error('Error fetching notebooks:', notebooksError);
@@ -104,6 +103,11 @@ export const useNotebooks = () => {
       if (!user) {
         console.error('User not authenticated');
         throw new Error('User not authenticated');
+      }
+
+      // Only admins can create notebooks
+      if (!isAdmin) {
+        throw new Error('Only administrators can create notebooks');
       }
 
       const { data, error } = await supabase
