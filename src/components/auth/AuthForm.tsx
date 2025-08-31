@@ -112,28 +112,31 @@ const AuthForm = () => {
   };
 
   return (
-    <Card className="w-full max-w-md mx-auto">
+    <Card className="w-full max-w-md mx-auto legal-card legal-shadow-lg border-0">
       <CardHeader>
-        <CardTitle>{isSignUp ? 'Create Account' : 'Sign In'}</CardTitle>
-        <CardDescription>
-          {isSignUp ? 'Create a new account to get started' : 'Enter your credentials to access your notebooks'}
+        <CardTitle className="text-2xl font-semibold text-center text-slate-800">
+          {isSignUp ? 'Create Account' : 'Welcome Back'}
+        </CardTitle>
+        <CardDescription className="text-center text-slate-600">
+          {isSignUp ? 'Join Legal Insights to access powerful research tools' : 'Sign in to access your legal research workspace'}
         </CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email" className="text-slate-700 font-medium">Email Address</Label>
             <Input
               id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              placeholder="Enter your email"
+              placeholder="Enter your email address"
+              className="h-11 border-slate-200 focus:border-slate-400 focus:ring-slate-400"
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password" className="text-slate-700 font-medium">Password</Label>
             <Input
               id="password"
               type="password"
@@ -142,9 +145,14 @@ const AuthForm = () => {
               required
               placeholder="Enter your password"
               minLength={6}
+              className="h-11 border-slate-200 focus:border-slate-400 focus:ring-slate-400"
             />
           </div>
-          <Button type="submit" className="w-full" disabled={loading}>
+          <Button 
+            type="submit" 
+            className="w-full h-11 bg-slate-800 hover:bg-slate-700 text-white font-medium tracking-wide transition-all duration-200 legal-shadow" 
+            disabled={loading}
+          >
             {loading ? (isSignUp ? 'Creating Account...' : 'Signing In...') : (isSignUp ? 'Create Account' : 'Sign In')}
           </Button>
           <div className="text-center mt-4">
@@ -152,7 +160,7 @@ const AuthForm = () => {
               type="button"
               variant="link"
               onClick={() => setIsSignUp(!isSignUp)}
-              className="text-sm"
+              className="text-sm text-slate-600 hover:text-slate-800 font-medium"
             >
               {isSignUp ? 'Already have an account? Sign in' : "Don't have an account? Sign up"}
             </Button>

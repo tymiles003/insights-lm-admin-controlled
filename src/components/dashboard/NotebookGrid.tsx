@@ -71,8 +71,12 @@ const NotebookGrid = () => {
   return <div>
       <div className="flex items-center justify-between mb-8">
         {isAdmin && (
-          <Button className="bg-black hover:bg-gray-800 text-white rounded-full px-6" onClick={handleCreateNotebook} disabled={isCreating}>
-            {isCreating ? 'Creating...' : '+ Create new'}
+          <Button 
+            className="bg-slate-800 hover:bg-slate-700 text-white rounded-xl px-8 py-3 font-semibold legal-shadow transition-all duration-200" 
+            onClick={handleCreateNotebook} 
+            disabled={isCreating}
+          >
+            {isCreating ? 'Creating research notebook...' : '+ Create new notebook'}
           </Button>
         )}
         {!isAdmin && <div />}
@@ -80,17 +84,17 @@ const NotebookGrid = () => {
         <div className="flex items-center space-x-4">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <div className="flex items-center space-x-2 bg-white rounded-lg border px-3 py-2 cursor-pointer hover:bg-gray-50 transition-colors">
-                <span className="text-sm text-gray-600">{sortBy}</span>
-                <ChevronDown className="h-4 w-4 text-gray-400" />
+              <div className="flex items-center space-x-2 bg-white rounded-xl border border-slate-200 px-4 py-2 cursor-pointer hover:bg-slate-50 transition-colors legal-shadow">
+                <span className="text-sm text-slate-700 font-medium">{sortBy}</span>
+                <ChevronDown className="h-4 w-4 text-slate-500" />
               </div>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-48">
-              <DropdownMenuItem onClick={() => setSortBy('Most recent')} className="flex items-center justify-between">
+            <DropdownMenuContent align="end" className="w-48 legal-shadow">
+              <DropdownMenuItem onClick={() => setSortBy('Most recent')} className="flex items-center justify-between text-slate-700">
                 Most recent
                 {sortBy === 'Most recent' && <Check className="h-4 w-4" />}
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setSortBy('Title')} className="flex items-center justify-between">
+              <DropdownMenuItem onClick={() => setSortBy('Title')} className="flex items-center justify-between text-slate-700">
                 Title
                 {sortBy === 'Title' && <Check className="h-4 w-4" />}
               </DropdownMenuItem>

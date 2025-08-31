@@ -183,9 +183,9 @@ const ChatArea = ({
   return <div className="flex-1 flex flex-col h-full overflow-hidden">
       {hasSource ? <div className="flex-1 flex flex-col h-full overflow-hidden">
           {/* Chat Header */}
-          <div className="p-4 border-b border-gray-200 flex-shrink-0">
+          <div className="p-6 border-b border-slate-200 flex-shrink-0 bg-white">
             <div className="max-w-4xl mx-auto flex items-center justify-between">
-              <h2 className="text-lg font-medium text-gray-900">Chat</h2>
+              <h2 className="text-xl font-semibold text-slate-800 tracking-tight">Legal Research Assistant</h2>
               {shouldShowRefreshButton && <Button variant="ghost" size="sm" onClick={handleRefreshChat} disabled={isDeletingChatHistory || isChatDisabled} className="flex items-center space-x-2">
                   <RefreshCw className={`h-4 w-4 ${isDeletingChatHistory ? 'animate-spin' : ''}`} />
                   <span>{isDeletingChatHistory ? 'Clearing...' : 'Clear Chat'}</span>
@@ -195,32 +195,32 @@ const ChatArea = ({
 
           <ScrollArea className="flex-1 h-full" ref={scrollAreaRef}>
             {/* Document Summary */}
-            <div className="p-8 border-b border-gray-200">
+            <div className="p-8 border-b border-slate-200 bg-gradient-to-br from-slate-50 to-white">
               <div className="max-w-4xl mx-auto">
                 <div className="flex items-center space-x-4 mb-6">
                   <div className="w-10 h-10 flex items-center justify-center bg-transparent">
-                    {isGenerating ? <Loader2 className="text-black font-normal w-10 h-10 animate-spin" /> : <span className="text-[40px] leading-none">{notebook?.icon || '☕'}</span>}
+                    {isGenerating ? <Loader2 className="text-slate-800 font-normal w-10 h-10 animate-spin" /> : <span className="text-[40px] leading-none">{notebook?.icon || '⚖️'}</span>}
                   </div>
                   <div>
-                    <h1 className="text-2xl font-medium text-gray-900">
-                      {isGenerating ? 'Generating content...' : notebook?.title || 'Untitled Notebook'}
+                    <h1 className="text-3xl font-semibold text-slate-800 tracking-tight">
+                      {isGenerating ? 'Analyzing legal documents...' : notebook?.title || 'Untitled Legal Research'}
                     </h1>
-                    <p className="text-sm text-gray-600">{sourceCount} source{sourceCount !== 1 ? 's' : ''}</p>
+                    <p className="text-sm text-slate-600 font-medium">{sourceCount} legal document{sourceCount !== 1 ? 's' : ''}</p>
                   </div>
                 </div>
                 
-                <div className="bg-gray-50 rounded-lg p-6 mb-6">
+                <div className="bg-white rounded-xl p-6 mb-6 border border-slate-200 legal-shadow">
                   {isGenerating ? <div className="flex items-center space-x-2 text-gray-600">
                       
-                      <p>AI is analyzing your source and generating a title and description...</p>
-                    </div> : <MarkdownRenderer content={notebook?.description || 'No description available for this notebook.'} className="prose prose-gray max-w-none text-gray-700 leading-relaxed" />}
+                      <p className="text-slate-600 font-medium">AI is analyzing your legal documents and generating insights...</p>
+                    </div> : <MarkdownRenderer content={notebook?.description || 'No description available for this legal research notebook.'} className="prose prose-slate max-w-none text-slate-700 leading-relaxed" />}
                 </div>
 
                 {/* Chat Messages */}
                 {(messages.length > 0 || pendingUserMessage || showAiLoading) && <div className="mb-6 space-y-4">
                     {messages.map((msg, index) => <div key={msg.id} className={`flex ${isUserMessage(msg) ? 'justify-end' : 'justify-start'}`}>
-                        <div className={`${isUserMessage(msg) ? 'max-w-xs lg:max-w-md px-4 py-2 bg-blue-500 text-white rounded-lg' : 'w-full'}`}>
-                          <div className={isUserMessage(msg) ? '' : 'prose prose-gray max-w-none text-gray-800'}>
+                        <div className={`${isUserMessage(msg) ? 'max-w-xs lg:max-w-md px-5 py-3 bg-slate-800 text-white rounded-xl legal-shadow' : 'w-full'}`}>
+                          <div className={isUserMessage(msg) ? 'font-medium' : 'prose prose-slate max-w-none text-slate-800'}>
                             <MarkdownRenderer content={msg.message.content} className={isUserMessage(msg) ? '' : ''} onCitationClick={handleCitationClick} isUserMessage={isUserMessage(msg)} />
                           </div>
                           {isAiMessage(msg) && <div className="mt-2 flex justify-start">
@@ -231,19 +231,19 @@ const ChatArea = ({
                     
                     {/* Pending user message */}
                     {pendingUserMessage && <div className="flex justify-end">
-                        <div className="max-w-xs lg:max-w-md px-4 py-2 bg-blue-500 text-white rounded-lg">
+                        <div className="max-w-xs lg:max-w-md px-5 py-3 bg-slate-800 text-white rounded-xl legal-shadow font-medium">
                           <MarkdownRenderer content={pendingUserMessage} className="" isUserMessage={true} />
                         </div>
                       </div>}
                     
                     {/* AI Loading Indicator */}
                     {showAiLoading && <div className="flex justify-start" ref={latestMessageRef}>
-                        <div className="flex items-center space-x-2 px-4 py-3 bg-gray-100 rounded-lg">
-                          <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                          <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{
+                        <div className="flex items-center space-x-2 px-5 py-3 bg-slate-100 rounded-xl legal-shadow">
+                          <div className="w-2 h-2 bg-slate-500 rounded-full animate-bounce"></div>
+                          <div className="w-2 h-2 bg-slate-500 rounded-full animate-bounce" style={{
                     animationDelay: '0.1s'
                   }}></div>
-                          <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{
+                          <div className="w-2 h-2 bg-slate-500 rounded-full animate-bounce" style={{
                     animationDelay: '0.2s'
                   }}></div>
                         </div>
@@ -257,16 +257,27 @@ const ChatArea = ({
           </ScrollArea>
 
           {/* Chat Input - Fixed at bottom */}
-          <div className="p-6 border-t border-gray-200 flex-shrink-0">
+          <div className="p-6 border-t border-slate-200 flex-shrink-0 bg-white">
             <div className="max-w-4xl mx-auto">
               <div className="flex space-x-4">
                 <div className="flex-1 relative">
-                  <Input placeholder={getPlaceholderText()} value={message} onChange={e => setMessage(e.target.value)} onKeyDown={e => e.key === 'Enter' && !isChatDisabled && !isSending && !pendingUserMessage && handleSendMessage()} className="pr-12" disabled={isChatDisabled || isSending || !!pendingUserMessage} />
-                  <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-gray-500">
-                    {sourceCount} source{sourceCount !== 1 ? 's' : ''}
+                  <Input 
+                    placeholder={getPlaceholderText()} 
+                    value={message} 
+                    onChange={e => setMessage(e.target.value)} 
+                    onKeyDown={e => e.key === 'Enter' && !isChatDisabled && !isSending && !pendingUserMessage && handleSendMessage()} 
+                    className="pr-16 h-12 border-slate-200 focus:border-slate-400 focus:ring-slate-400 rounded-xl" 
+                    disabled={isChatDisabled || isSending || !!pendingUserMessage} 
+                  />
+                  <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-slate-500 font-medium">
+                    {sourceCount} doc{sourceCount !== 1 ? 's' : ''}
                   </div>
                 </div>
-                <Button onClick={() => handleSendMessage()} disabled={!message.trim() || isChatDisabled || isSending || !!pendingUserMessage}>
+                <Button 
+                  onClick={() => handleSendMessage()} 
+                  disabled={!message.trim() || isChatDisabled || isSending || !!pendingUserMessage}
+                  className="h-12 px-6 bg-slate-800 hover:bg-slate-700 text-white font-medium rounded-xl legal-shadow transition-all duration-200"
+                >
                   {isSending || pendingUserMessage ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
                 </Button>
               </div>
@@ -276,7 +287,12 @@ const ChatArea = ({
                   <Carousel className="w-full max-w-4xl">
                     <CarouselContent className="-ml-2 md:-ml-4">
                       {exampleQuestions.map((question, index) => <CarouselItem key={index} className="pl-2 md:pl-4 basis-auto">
-                          <Button variant="outline" size="sm" className="text-left whitespace-nowrap h-auto py-2 px-3 text-sm" onClick={() => handleExampleQuestionClick(question)}>
+                          <Button 
+                            variant="outline" 
+                            size="sm" 
+                            className="text-left whitespace-nowrap h-auto py-3 px-4 text-sm border-slate-200 hover:bg-slate-50 hover:border-slate-300 rounded-xl font-medium transition-all duration-200" 
+                            onClick={() => handleExampleQuestionClick(question)}
+                          >
                             {question}
                           </Button>
                         </CarouselItem>)}
@@ -293,26 +309,35 @@ const ChatArea = ({
     // Empty State
     <div className="flex-1 flex flex-col items-center justify-center p-8 overflow-hidden">
           <div className="text-center mb-8">
-            <div className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center bg-gray-100">
-              <Upload className="h-8 w-8 text-slate-600" />
+            <div className="w-20 h-20 rounded-2xl mx-auto mb-6 flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200 legal-shadow">
+              <Upload className="h-10 w-10 text-slate-600" />
             </div>
-            <h2 className="text-xl font-medium text-gray-900 mb-4">Add a source to get started</h2>
+            <h2 className="text-2xl font-semibold text-slate-800 mb-4 tracking-tight">Add legal documents to begin research</h2>
             {isAdmin ? (
-              <Button onClick={() => setShowAddSourcesDialog(true)}>
+              <Button 
+                onClick={() => setShowAddSourcesDialog(true)}
+                className="bg-slate-800 hover:bg-slate-700 text-white font-semibold px-8 py-3 rounded-xl legal-shadow-lg transition-all duration-200"
+              >
                 <Upload className="h-4 w-4 mr-2" />
-                Upload a source
+                Upload legal documents
               </Button>
             ) : (
-              <p className="text-gray-600">Contact your administrator to add sources to this notebook.</p>
+              <div className="bg-white rounded-xl border border-slate-200 p-6 legal-shadow max-w-md">
+                <p className="text-slate-600 font-medium">Contact your administrator to add legal documents to this research notebook.</p>
+              </div>
             )}
           </div>
 
           {/* Bottom Input */}
           <div className="w-full max-w-2xl">
             <div className="flex space-x-4">
-              <Input placeholder="Upload a source to get started" disabled className="flex-1" />
-              <div className="flex items-center text-sm text-gray-500">
-                0 sources
+              <Input 
+                placeholder="Upload legal documents to get started" 
+                disabled 
+                className="flex-1 h-12 border-slate-200 rounded-xl" 
+              />
+              <div className="flex items-center text-sm text-slate-500 font-medium">
+                0 documents
               </div>
               <Button disabled>
                 <Send className="h-4 w-4" />
@@ -322,8 +347,8 @@ const ChatArea = ({
         </div>}
       
       {/* Footer */}
-      <div className="p-4 border-t border-gray-200 flex-shrink-0">
-        <p className="text-center text-sm text-gray-500">InsightsLM can be inaccurate; please double-check its responses.</p>
+      <div className="p-4 border-t border-slate-200 flex-shrink-0 bg-slate-50">
+        <p className="text-center text-sm text-slate-500 font-medium">Legal Insights provides AI assistance; always verify legal information with qualified professionals.</p>
       </div>
       
       {/* Add Sources Dialog */}

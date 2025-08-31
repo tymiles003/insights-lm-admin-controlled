@@ -229,23 +229,28 @@ const SourcesSidebar = ({
   }
 
   return (
-    <div className="w-full bg-gray-50 border-r border-gray-200 flex flex-col h-full overflow-hidden">
-      <div className="p-4 border-b border-gray-200 flex-shrink-0">
+    <div className="w-full bg-slate-50 border-r border-slate-200 flex flex-col h-full overflow-hidden">
+      <div className="p-4 border-b border-slate-200 flex-shrink-0 bg-white">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-medium text-gray-900">Sources</h2>
+          <h2 className="text-lg font-semibold text-slate-800 tracking-tight">Legal Documents</h2>
         </div>
         
         {isAdmin && (
           <div className="flex space-x-2">
-            <Button variant="outline" size="sm" className="flex-1" onClick={() => setShowAddSourcesDialog(true)}>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="flex-1 border-slate-300 text-slate-700 hover:bg-slate-100 font-medium rounded-lg" 
+              onClick={() => setShowAddSourcesDialog(true)}
+            >
               <Plus className="h-4 w-4 mr-2" />
-              Add
+              Add Documents
             </Button>
           </div>
         )}
         {!isAdmin && (
-          <div className="text-sm text-muted-foreground mb-4">
-            Contact your administrator to add sources to this notebook.
+          <div className="text-sm text-slate-600 mb-4 font-medium">
+            Contact your administrator to add legal documents to this research notebook.
           </div>
         )}
       </div>
@@ -254,21 +259,21 @@ const SourcesSidebar = ({
         <div className="p-4">
           {isLoading ? (
             <div className="text-center py-8">
-              <p className="text-sm text-gray-600">Loading sources...</p>
+              <p className="text-sm text-slate-600 font-medium">Loading legal documents...</p>
             </div>
           ) : sources && sources.length > 0 ? (
             <div className="space-y-4">
               {sources.map((source) => (
                 <ContextMenu key={source.id}>
                   <ContextMenuTrigger>
-                    <Card className="p-3 border border-gray-200 cursor-pointer hover:bg-gray-50" onClick={() => handleSourceClick(source)}>
+                    <Card className="p-4 border border-slate-200 cursor-pointer hover:bg-white transition-all duration-200 rounded-xl legal-shadow" onClick={() => handleSourceClick(source)}>
                       <div className="flex items-start justify-between space-x-3">
                         <div className="flex items-center space-x-2 flex-1 min-w-0">
-                          <div className="w-6 h-6 bg-white rounded border border-gray-200 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                          <div className="w-7 h-7 bg-white rounded-lg border border-slate-200 flex items-center justify-center flex-shrink-0 overflow-hidden legal-shadow">
                             {renderSourceIcon(source.type)}
                           </div>
                           <div className="flex-1 min-w-0">
-                            <span className="text-sm text-gray-900 truncate block">{source.title}</span>
+                            <span className="text-sm text-slate-800 truncate block font-medium">{source.title}</span>
                           </div>
                         </div>
                         <div className="flex-shrink-0 py-[4px]">
@@ -277,22 +282,22 @@ const SourcesSidebar = ({
                       </div>
                     </Card>
                   </ContextMenuTrigger>
-                  <ContextMenuContent>
+                  <ContextMenuContent className="legal-shadow">
                     {isAdmin && (
                       <>
-                        <ContextMenuItem onClick={() => handleRenameSource(source)}>
+                        <ContextMenuItem onClick={() => handleRenameSource(source)} className="text-slate-700">
                           <Edit className="h-4 w-4 mr-2" />
-                          Rename source
+                          Rename document
                         </ContextMenuItem>
                         <ContextMenuItem onClick={() => handleRemoveSource(source)} className="text-red-600 focus:text-red-600">
                           <Trash2 className="h-4 w-4 mr-2" />
-                          Remove source
+                          Remove document
                         </ContextMenuItem>
                       </>
                     )}
                     {!isAdmin && (
                       <ContextMenuItem disabled>
-                        <span className="text-gray-500">Admin access required</span>
+                        <span className="text-slate-500">Admin access required</span>
                       </ContextMenuItem>
                     )}
                   </ContextMenuContent>
@@ -301,11 +306,11 @@ const SourcesSidebar = ({
             </div>
           ) : (
             <div className="text-center py-8">
-              <div className="w-16 h-16 bg-gray-200 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                <span className="text-gray-400 text-2xl">📄</span>
+              <div className="w-16 h-16 bg-slate-200 rounded-xl mx-auto mb-4 flex items-center justify-center">
+                <span className="text-slate-400 text-2xl">⚖️</span>
               </div>
               <div className="text-sm text-muted-foreground">
-                <p className="text-sm text-gray-600 mb-4">Click Add source above to add PDFs, text, or audio files.</p>
+                <p className="text-sm text-slate-600 mb-4 font-medium">Click Add Documents above to upload legal PDFs, contracts, or case files.</p>
               </div>
             </div>
           )}

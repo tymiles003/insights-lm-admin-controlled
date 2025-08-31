@@ -14,24 +14,27 @@ const DashboardHeader = ({ userEmail }: DashboardHeaderProps) => {
   const { logout } = useLogout();
 
   return (
-    <header className="bg-white px-6 py-4">
+    <header className="bg-white px-6 py-5 border-b border-slate-200 legal-shadow">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2">
           <Logo />
-          <h1 className="text-xl font-medium text-gray-900">InsightsLM</h1>
+          <div className="flex flex-col">
+            <h1 className="text-xl font-semibold text-slate-800 tracking-tight">Legal Insights</h1>
+            <p className="text-xs text-slate-500 font-medium">Research Platform</p>
+          </div>
         </div>
         
         <div className="flex items-center space-x-4">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="sm" className="p-0">
-                <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center cursor-pointer hover:bg-purple-600 transition-colors">
+                <div className="w-9 h-9 bg-gradient-to-br from-slate-600 to-slate-700 rounded-lg flex items-center justify-center cursor-pointer hover:from-slate-700 hover:to-slate-800 transition-all duration-200 legal-shadow">
                   <User className="h-4 w-4 text-white" />
                 </div>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-48">
-              <DropdownMenuItem onClick={logout} className="cursor-pointer">
+            <DropdownMenuContent align="end" className="w-48 legal-shadow">
+              <DropdownMenuItem onClick={logout} className="cursor-pointer text-slate-700 hover:text-slate-900">
                 <LogOut className="h-4 w-4 mr-2" />
                 Sign Out
               </DropdownMenuItem>

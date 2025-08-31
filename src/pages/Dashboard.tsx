@@ -20,15 +20,15 @@ const Dashboard = () => {
   // Show loading while auth is initializing
   if (authLoading || profileLoading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-slate-50">
         <DashboardHeader userEmail={user?.email} />
         <main className="max-w-7xl mx-auto px-6 py-8">
           <div className="mb-8">
-            <h1 className="text-4xl font-medium text-gray-900 mb-2">Welcome to InsightsLM</h1>
+            <h1 className="text-4xl font-semibold text-slate-800 mb-2 tracking-tight">Welcome to Legal Insights</h1>
           </div>
           <div className="text-center py-16">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-            <p className="text-gray-600">Initializing...</p>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-slate-600 mx-auto mb-4"></div>
+            <p className="text-slate-600 font-medium">Initializing platform...</p>
           </div>
         </main>
       </div>
@@ -38,17 +38,17 @@ const Dashboard = () => {
   // Show auth error if present
   if (authError) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-slate-50">
         <DashboardHeader userEmail={user?.email} />
         <main className="max-w-7xl mx-auto px-6 py-8">
           <div className="mb-8">
-            <h1 className="text-4xl font-medium text-gray-900 mb-2">Welcome to InsightsLM</h1>
+            <h1 className="text-4xl font-semibold text-slate-800 mb-2 tracking-tight">Welcome to Legal Insights</h1>
           </div>
           <div className="text-center py-16">
             <p className="text-red-600">Authentication error: {authError}</p>
             <button 
               onClick={() => window.location.reload()} 
-              className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+              className="mt-4 px-6 py-2 bg-slate-800 text-white rounded-lg hover:bg-slate-700 font-medium transition-colors"
             >
               Retry
             </button>
@@ -61,15 +61,15 @@ const Dashboard = () => {
   // Show notebooks loading state
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-slate-50">
         <DashboardHeader userEmail={user?.email} />
         <main className="max-w-7xl mx-auto px-6 py-8">
           <div className="mb-8">
-            <h1 className="text-4xl font-medium text-gray-900 mb-2">Welcome to InsightsLM</h1>
+            <h1 className="text-4xl font-semibold text-slate-800 mb-2 tracking-tight">Welcome to Legal Insights</h1>
           </div>
           <div className="text-center py-16">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-            <p className="text-gray-600">Loading your notebooks...</p>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-slate-600 mx-auto mb-4"></div>
+            <p className="text-slate-600 font-medium">Loading your research workspace...</p>
           </div>
         </main>
       </div>
@@ -79,17 +79,17 @@ const Dashboard = () => {
   // Show notebooks error if present
   if (isError && error) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-slate-50">
         <DashboardHeader userEmail={user?.email} />
         <main className="max-w-7xl mx-auto px-6 py-8">
           <div className="mb-8">
-            <h1 className="text-4xl font-medium text-gray-900 mb-2">Welcome to InsightsLM</h1>
+            <h1 className="text-4xl font-semibold text-slate-800 mb-2 tracking-tight">Welcome to Legal Insights</h1>
           </div>
           <div className="text-center py-16">
             <p className="text-red-600">Error loading notebooks: {typeof error === 'string' ? error : 'Unknown error'}</p>
             <button 
               onClick={() => window.location.reload()} 
-              className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+              className="mt-4 px-6 py-2 bg-slate-800 text-white rounded-lg hover:bg-slate-700 font-medium transition-colors"
             >
               Retry
             </button>
@@ -101,13 +101,13 @@ const Dashboard = () => {
 
   if (showAdminPanel && isAdmin) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-slate-50">
         <DashboardHeader userEmail={user?.email} />
         <div className="max-w-7xl mx-auto px-6 py-4">
           <Button 
             variant="outline" 
             onClick={() => setShowAdminPanel(false)}
-            className="mb-4"
+            className="mb-4 border-slate-300 text-slate-700 hover:bg-slate-100"
           >
             ← Back to Dashboard
           </Button>
@@ -118,16 +118,19 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-slate-50">
       <DashboardHeader userEmail={user?.email} />
       
       <main className="max-w-7xl mx-auto px-6 py-[60px]">
         <div className="mb-8 flex justify-between items-center">
-          <h1 className="font-medium text-gray-900 mb-2 text-5xl">Welcome to InsightsLM</h1>
+          <div>
+            <h1 className="font-semibold text-slate-800 mb-3 text-5xl tracking-tight">Welcome to Legal Insights</h1>
+            <p className="text-xl text-slate-600 font-medium">Your intelligent legal research companion</p>
+          </div>
           {isAdmin && (
             <Button 
               onClick={() => setShowAdminPanel(true)}
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-white font-medium px-6 py-3 legal-shadow"
             >
               <Shield className="h-4 w-4" />
               Admin Panel

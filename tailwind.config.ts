@@ -11,18 +11,14 @@ export default {
 	prefix: "",
 	safelist: [
 		// Background colors for notebook cards
-		'bg-red-100', 'bg-blue-100', 'bg-green-100', 'bg-yellow-100', 'bg-purple-100', 
-		'bg-pink-100', 'bg-indigo-100', 'bg-gray-100', 'bg-orange-100', 'bg-teal-100',
-		'bg-cyan-100', 'bg-emerald-100', 'bg-lime-100', 'bg-amber-100', 'bg-violet-100',
-		'bg-fuchsia-100', 'bg-rose-100', 'bg-sky-100', 'bg-slate-100', 'bg-zinc-100',
-		'bg-neutral-100', 'bg-stone-100',
+		'bg-slate-50', 'bg-slate-100', 'bg-blue-50', 'bg-blue-100', 'bg-indigo-50', 'bg-indigo-100', 
+		'bg-purple-50', 'bg-purple-100', 'bg-emerald-50', 'bg-emerald-100', 'bg-amber-50', 'bg-amber-100',
+		'bg-rose-50', 'bg-rose-100', 'bg-teal-50', 'bg-teal-100', 'bg-cyan-50', 'bg-cyan-100',
+		'bg-gray-50', 'bg-gray-100', 'bg-zinc-50', 'bg-zinc-100', 'bg-stone-50', 'bg-stone-100',
 		// Border colors for notebook cards
-		'border-red-200', 'border-blue-200', 'border-green-200', 'border-yellow-200', 
-		'border-purple-200', 'border-pink-200', 'border-indigo-200', 'border-gray-200', 
-		'border-orange-200', 'border-teal-200', 'border-cyan-200', 'border-emerald-200', 
-		'border-lime-200', 'border-amber-200', 'border-violet-200', 'border-fuchsia-200', 
-		'border-rose-200', 'border-sky-200', 'border-slate-200', 'border-zinc-200',
-		'border-neutral-200', 'border-stone-200',
+		'border-slate-200', 'border-blue-200', 'border-indigo-200', 'border-purple-200', 
+		'border-emerald-200', 'border-amber-200', 'border-rose-200', 'border-teal-200', 
+		'border-cyan-200', 'border-gray-200', 'border-zinc-200', 'border-stone-200',
 	],
 	theme: {
 		container: {
@@ -33,6 +29,9 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				'inter': ['Inter', 'system-ui', 'sans-serif'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -76,12 +75,33 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				legal: {
+					50: '#f8fafc',
+					100: '#f1f5f9',
+					200: '#e2e8f0',
+					300: '#cbd5e1',
+					400: '#94a3b8',
+					500: '#64748b',
+					600: '#475569',
+					700: '#334155',
+					800: '#1e293b',
+					900: '#0f172a',
 				}
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
+			},
+			typography: {
+				DEFAULT: {
+					css: {
+						fontFamily: 'Inter, system-ui, sans-serif',
+						lineHeight: '1.6',
+						letterSpacing: '-0.01em',
+					},
+				},
 			},
 			keyframes: {
 				'accordion-down': {

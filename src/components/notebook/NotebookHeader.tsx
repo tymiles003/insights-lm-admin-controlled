@@ -63,13 +63,13 @@ const NotebookHeader = ({ title, notebookId }: NotebookHeaderProps) => {
   };
 
   return (
-    <header className="bg-white border-b border-gray-200 px-6 py-4">
+    <header className="bg-white border-b border-slate-200 px-6 py-5 legal-shadow">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-2">
             <button 
               onClick={handleIconClick}
-              className="hover:bg-gray-50 rounded transition-colors p-1"
+              className="hover:bg-slate-50 rounded-lg transition-colors p-2"
             >
               <Logo />
             </button>
@@ -79,13 +79,13 @@ const NotebookHeader = ({ title, notebookId }: NotebookHeaderProps) => {
                 onChange={(e) => setEditedTitle(e.target.value)}
                 onKeyDown={handleKeyDown}
                 onBlur={handleBlur}
-                className="text-lg font-medium text-gray-900 border-none shadow-none p-0 h-auto focus-visible:ring-0 min-w-[300px] w-auto"
+                className="text-xl font-semibold text-slate-800 border-none shadow-none p-0 h-auto focus-visible:ring-0 min-w-[300px] w-auto tracking-tight"
                 autoFocus
                 disabled={isUpdating}
               />
             ) : (
               <span 
-                className={`text-lg font-medium text-gray-900 rounded px-2 py-1 transition-colors ${isAdmin ? 'cursor-pointer hover:bg-gray-50' : ''}`}
+                className={`text-xl font-semibold text-slate-800 rounded-lg px-3 py-2 transition-colors tracking-tight ${isAdmin ? 'cursor-pointer hover:bg-slate-50' : ''}`}
                 onClick={handleTitleClick}
               >
                 {title}
@@ -99,13 +99,13 @@ const NotebookHeader = ({ title, notebookId }: NotebookHeaderProps) => {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="sm" className="p-0">
-                  <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center cursor-pointer hover:bg-purple-600 transition-colors">
+                  <div className="w-9 h-9 bg-gradient-to-br from-slate-600 to-slate-700 rounded-lg flex items-center justify-center cursor-pointer hover:from-slate-700 hover:to-slate-800 transition-all duration-200 legal-shadow">
                     <User className="h-4 w-4 text-white" />
                   </div>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48">
-                <DropdownMenuItem onClick={logout} className="cursor-pointer">
+              <DropdownMenuContent align="end" className="w-48 legal-shadow">
+                <DropdownMenuItem onClick={logout} className="cursor-pointer text-slate-700 hover:text-slate-900">
                   <LogOut className="h-4 w-4 mr-2" />
                   Sign Out
                 </DropdownMenuItem>
