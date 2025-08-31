@@ -21,7 +21,10 @@ export function AdminDashboard() {
   if (!isAdmin) {
     return <div className="container mx-auto p-6 max-w-7xl">
       <div className="text-center py-8">
-        <h1 className="text-2xl font-bold text-red-600 mb-4">Access Denied</h1>
+        <div className="flex items-center justify-center mb-4">
+          <Shield className="h-8 w-8 text-red-600 mr-2" />
+          <h1 className="text-2xl font-bold text-red-600">Access Denied</h1>
+        </div>
         <p className="text-gray-600">You need administrator privileges to access this page.</p>
       </div>
     </div>;

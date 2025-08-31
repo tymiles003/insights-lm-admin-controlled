@@ -125,15 +125,6 @@ const ChatArea = ({
             variant: "destructive",
           });
         }
-        
-        // Show error toast for permission issues
-        if (error.message?.includes('permission') || error.message?.includes('Access denied')) {
-          toast({
-            title: "Access Denied",
-            description: "You don't have permission to chat with this notebook.",
-            variant: "destructive",
-          });
-        }
       }
     }
   };

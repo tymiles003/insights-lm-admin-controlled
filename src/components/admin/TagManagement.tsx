@@ -9,7 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Plus, Edit, Trash } from "lucide-react";
-import { toast } from "sonner";
+import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
 
 interface Tag {
@@ -24,6 +24,7 @@ interface Tag {
 export function TagManagement() {
   const queryClient = useQueryClient();
   const { user } = useAuth();
+  const { toast } = useToast();
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
   const [editingTag, setEditingTag] = useState<Tag | null>(null);
   const [formData, setFormData] = useState({
@@ -66,13 +67,20 @@ export function TagManagement() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tags'] });
-      toast.success('Tag created successfully');
+      toast({
+        title: "Success",
+        description: "Tag created successfully",
+      });
       setCreateDialogOpen(false);
       resetForm();
     },
     onError: (error) => {
       console.error('Error creating tag:', error);
-      toast.error('Failed to create tag');
+      toast({
+        title: "Error",
+        description: "Failed to create tag",
+        variant: "destructive",
+      });
     },
   });
 
@@ -87,13 +95,20 @@ export function TagManagement() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tags'] });
-      toast.success('Tag updated successfully');
+      toast({
+        title: "Success", 
+        description: "Tag updated successfully",
+      });
       setEditingTag(null);
       resetForm();
     },
     onError: (error) => {
       console.error('Error updating tag:', error);
-      toast.error('Failed to update tag');
+      toast({
+        title: "Error",
+        description: "Failed to update tag", 
+        variant: "destructive",
+      });
     },
   });
 
@@ -108,11 +123,18 @@ export function TagManagement() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tags'] });
-      toast.success('Tag deleted successfully');
+      toast({
+        title: "Success",
+        description: "Tag deleted successfully",
+      });
     },
     onError: (error) => {
       console.error('Error deleting tag:', error);
-      toast.error('Failed to delete tag');
+      toast({
+        title: "Error", 
+        description: "Failed to delete tag",
+        variant: "destructive",
+      });
     },
   });
 
@@ -127,7 +149,11 @@ export function TagManagement() {
 
   const handleSubmit = () => {
     if (!formData.name.trim()) {
-      toast.error('Please enter a tag name');
+      toast({
+        title: "Error",
+        description: "Please enter a tag name",
+        variant: "destructive",
+      });
       return;
     }
 

@@ -10,13 +10,14 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Plus, ExternalLink, Edit, Trash } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { toast } from "sonner";
+import { useToast } from "@/hooks/use-toast";
 import { NotebookTagSelector } from "./NotebookTagSelector";
 import { useAuth } from "@/contexts/AuthContext";
 
 export function NotebookManagement() {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { toast } = useToast();
   const { notebooks, isLoading, createNotebook } = useNotebooks();
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
   const [newNotebookName, setNewNotebookName] = useState("");
@@ -25,7 +26,11 @@ export function NotebookManagement() {
 
   const handleCreateNotebook = async () => {
     if (!newNotebookName.trim()) {
-      toast.error("Please enter a notebook name");
+      toast({
+        title: "Error",
+        description: "Please enter a notebook name",
+        variant: "destructive",
+      });
       return;
     }
 
@@ -62,14 +67,21 @@ export function NotebookManagement() {
         if (tagError) throw tagError;
       }
 
-      toast.success("Notebook created successfully");
+      toast({
+        title: "Success",
+        description: "Notebook created successfully",
+      });
       setCreateDialogOpen(false);
       setNewNotebookName("");
       setIsPublic(false);
       setSelectedTags([]);
     } catch (error) {
       console.error('Error creating notebook:', error);
-      toast.error("Failed to create notebook");
+      toast({
+        title: "Error",
+        description: "Failed to create notebook",
+        variant: "destructive",
+      });
     }
   };
 
@@ -81,10 +93,17 @@ export function NotebookManagement() {
         .eq('id', id);
 
       if (error) throw error;
-      toast.success("Notebook deleted successfully");
+      toast({
+        title: "Success", 
+        description: "Notebook deleted successfully",
+      });
     } catch (error) {
       console.error('Error deleting notebook:', error);
-      toast.error("Failed to delete notebook");
+      toast({
+        title: "Error",
+        description: "Failed to delete notebook",
+        variant: "destructive",
+      });
     }
   };
 

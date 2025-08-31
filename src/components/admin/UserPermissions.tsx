@@ -12,7 +12,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { CalendarIcon, Plus, Trash, UserPlus } from "lucide-react";
 import { format } from "date-fns";
-import { toast } from "sonner";
+import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -35,6 +35,7 @@ interface Permission {
 export function UserPermissions() {
   const queryClient = useQueryClient();
   const { user } = useAuth();
+  const { toast } = useToast();
   const [grantDialogOpen, setGrantDialogOpen] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState("");
   const [selectedTagId, setSelectedTagId] = useState("");
@@ -107,13 +108,20 @@ export function UserPermissions() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user-permissions'] });
-      toast.success('Permission granted successfully');
+      toast({
+        title: "Success",
+        description: "Permission granted successfully",
+      });
       setGrantDialogOpen(false);
       resetForm();
     },
     onError: (error) => {
       console.error('Error granting permission:', error);
-      toast.error('Failed to grant permission');
+      toast({
+        title: "Error",
+        description: "Failed to grant permission",
+        variant: "destructive", 
+      });
     },
   });
 
@@ -128,11 +136,18 @@ export function UserPermissions() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user-permissions'] });
-      toast.success('Permission revoked successfully');
+      toast({
+        title: "Success",
+        description: "Permission revoked successfully",
+      });
     },
     onError: (error) => {
       console.error('Error revoking permission:', error);
-      toast.error('Failed to revoke permission');
+      toast({
+        title: "Error",
+        description: "Failed to revoke permission",
+        variant: "destructive",
+      });
     },
   });
 
