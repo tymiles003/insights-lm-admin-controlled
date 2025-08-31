@@ -304,8 +304,9 @@ const SourcesSidebar = ({
               <div className="w-16 h-16 bg-gray-200 rounded-lg mx-auto mb-4 flex items-center justify-center">
                 <span className="text-gray-400 text-2xl">📄</span>
               </div>
-            <div className="text-sm text-muted-foreground">
-              <p className="text-sm text-gray-600 mb-4">Click Add source above to add PDFs, text, or audio files.</p>
+              <div className="text-sm text-muted-foreground">
+                <p className="text-sm text-gray-600 mb-4">Click Add source above to add PDFs, text, or audio files.</p>
+              </div>
             </div>
           )}
         </div>
