@@ -5,6 +5,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { EnhancedChatMessage, Citation, MessageSegment } from '@/types/message';
 import { useToast } from '@/hooks/use-toast';
 import { useEffect } from 'react';
+import { useProfile } from '@/hooks/useProfile';
 
 // Type for the expected message structure from n8n_chat_histories
 interface N8nMessageFormat {
@@ -163,6 +164,7 @@ const transformMessage = (item: any, sourceMap: Map<string, any>): EnhancedChatM
 
 export const useChatMessages = (notebookId?: string) => {
   const { user } = useAuth();
+  const { isAdmin } = useProfile();
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
@@ -264,13 +266,15 @@ export const useChatMessages = (notebookId?: string) => {
     }) => {
       if (!user) throw new Error('User not authenticated');
 
-      // Use the permission-aware chat endpoint
-      const webhookResponse = await supabase.functions.invoke('send-chat-message-with-permissions', {
+      // Use different endpoints based on user role
+      const endpoint = isAdmin ? 'send-chat-message' : 'send-chat-message-with-permissions';
+      
+      const webhookResponse = await supabase.functions.invoke(endpoint, {
         body: {
           session_id: messageData.notebookId,
           message: messageData.content,
           user_id: user.id,
-          notebook_id: messageData.notebookId
+          ...(endpoint === 'send-chat-message-with-permissions' && { notebook_id: messageData.notebookId })
         }
       });
 
@@ -335,10 +339,11 @@ export const useChatMessages = (notebookId?: string) => {
   return {
     messages,
     isLoading,
-    error,
+    error: error?.message || null,
     sendMessage: sendMessage.mutate,
     sendMessageAsync: sendMessage.mutateAsync,
     isSending: sendMessage.isPending,
+    sendError: sendMessage.error,
     deleteChatHistory: deleteChatHistory.mutate,
     isDeletingChatHistory: deleteChatHistory.isPending,
   };

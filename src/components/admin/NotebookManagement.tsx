@@ -12,9 +12,11 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { NotebookTagSelector } from "./NotebookTagSelector";
+import { useAuth } from "@/contexts/AuthContext";
 
 export function NotebookManagement() {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const { notebooks, isLoading, createNotebook } = useNotebooks();
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
   const [newNotebookName, setNewNotebookName] = useState("");
@@ -28,7 +30,6 @@ export function NotebookManagement() {
     }
 
     try {
-      const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
         throw new Error('User not authenticated');
       }

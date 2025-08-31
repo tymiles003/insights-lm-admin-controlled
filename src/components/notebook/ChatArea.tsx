@@ -12,6 +12,7 @@ import SaveToNoteButton from './SaveToNoteButton';
 import AddSourcesDialog from './AddSourcesDialog';
 import { useProfile } from '@/hooks/useProfile';
 import { Citation } from '@/types/message';
+import { useToast } from '@/hooks/use-toast';
 
 interface ChatAreaProps {
   hasSource: boolean;
@@ -41,13 +42,15 @@ const ChatArea = ({
   
   const isGenerating = notebook?.generation_status === 'generating';
   const { isAdmin } = useProfile();
+  const { toast } = useToast();
   
   const {
     messages,
     sendMessage,
     isSending,
     deleteChatHistory,
-    isDeletingChatHistory
+    isDeletingChatHistory,
+    error: chatError
   } = useChatMessages(notebookId);
   
   const {
@@ -113,6 +116,24 @@ const ChatArea = ({
         // Clear pending message on error
         setPendingUserMessage(null);
         setShowAiLoading(false);
+        
+        // Show error toast for permission issues
+        if (error.message?.includes('permission') || error.message?.includes('Access denied')) {
+          toast({
+            title: "Access Denied",
+            description: "You don't have permission to chat with this notebook.",
+            variant: "destructive",
+          });
+        }
+        
+        // Show error toast for permission issues
+        if (error.message?.includes('permission') || error.message?.includes('Access denied')) {
+          toast({
+            title: "Access Denied",
+            description: "You don't have permission to chat with this notebook.",
+            variant: "destructive",
+          });
+        }
       }
     }
   };

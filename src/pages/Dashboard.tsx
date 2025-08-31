@@ -86,7 +86,7 @@ const Dashboard = () => {
             <h1 className="text-4xl font-medium text-gray-900 mb-2">Welcome to InsightsLM</h1>
           </div>
           <div className="text-center py-16">
-            <p className="text-red-600">Error loading notebooks: {error}</p>
+            <p className="text-red-600">Error loading notebooks: {typeof error === 'string' ? error : 'Unknown error'}</p>
             <button 
               onClick={() => window.location.reload()} 
               className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"

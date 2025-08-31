@@ -48,10 +48,28 @@ const AuthForm = () => {
         
         toast({
           title: "Account created!",
-          description: "You can now sign in with your credentials.",
+          description: "Your account has been created successfully. You can now sign in.",
         });
         
-        setIsSignUp(false);
+        // Auto sign in after successful sign up
+        const { error: signInError } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+        
+        if (signInError) {
+          console.error('Auto sign in error:', signInError);
+          toast({
+            title: "Account created",
+            description: "Please sign in with your new credentials.",
+          });
+          setIsSignUp(false);
+        } else {
+          toast({
+            title: "Welcome!",
+            description: "Account created and signed in successfully.",
+          });
+        }
       } else {
         console.log('Attempting sign in for:', email);
       

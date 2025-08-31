@@ -48,14 +48,6 @@ const NotebookGrid = () => {
     createNotebook({
       title: 'Untitled notebook',
       description: ''
-    }, {
-      onSuccess: data => {
-        console.log('Navigating to notebook:', data.id);
-        navigate(`/notebook/${data.id}`);
-      },
-      onError: error => {
-        console.error('Failed to create notebook:', error);
-      }
     });
   };
 

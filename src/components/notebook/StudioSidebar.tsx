@@ -130,7 +130,7 @@ const StudioSidebar = ({
   };
 
   const handleGenerateAudio = () => {
-    if (notebookId) {
+    if (notebookId && isAdmin) {
       generateAudioOverview(notebookId);
       setAudioError(false);
     }

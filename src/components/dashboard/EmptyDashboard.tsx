@@ -14,21 +14,21 @@ const EmptyDashboard = () => {
   const { isAdmin } = useProfile();
 
   const handleCreateNotebook = () => {
-    console.log('Create notebook button clicked');
-    console.log('isCreating:', isCreating);
+    if (!isAdmin) {
+      console.error('Only admins can create notebooks');
+      return;
+    }
+    
     createNotebook({
       title: 'Untitled notebook',
       description: ''
-    }, {
-      onSuccess: data => {
-        console.log('Navigating to notebook:', data.id);
-        navigate(`/notebook/${data.id}`);
-      },
-      onError: error => {
-        console.error('Failed to create notebook:', error);
-      }
     });
   };
+
+  // Listen for successful notebook creation to navigate
+  React.useEffect(() => {
+    // This will be handled by the mutation's onSuccess in useNotebooks
+  }, []);
 
   return <div className="text-center py-16">
       <div className="mb-12">

@@ -4,11 +4,13 @@ import { useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProfile } from '@/hooks/useProfile';
+import { useNavigate } from 'react-router-dom';
 
 export const useNotebooks = () => {
   const { user, isAuthenticated, loading: authLoading } = useAuth();
   const { isAdmin } = useProfile();
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const {
     data: notebooks = [],
@@ -132,6 +134,9 @@ export const useNotebooks = () => {
     onSuccess: (data) => {
       console.log('Mutation success, invalidating queries');
       queryClient.invalidateQueries({ queryKey: ['notebooks', user?.id] });
+      
+      // Navigate to the new notebook
+      navigate(`/notebook/${data.id}`);
     },
     onError: (error) => {
       console.error('Mutation error:', error);

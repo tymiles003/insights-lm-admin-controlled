@@ -14,6 +14,7 @@ import { CalendarIcon, Plus, Trash, UserPlus } from "lucide-react";
 import { format } from "date-fns";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface Permission {
   id: string;
@@ -33,6 +34,7 @@ interface Permission {
 
 export function UserPermissions() {
   const queryClient = useQueryClient();
+  const { user } = useAuth();
   const [grantDialogOpen, setGrantDialogOpen] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState("");
   const [selectedTagId, setSelectedTagId] = useState("");
@@ -88,7 +90,6 @@ export function UserPermissions() {
         throw new Error('Please select both user and tag');
       }
 
-      const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
         throw new Error('User not authenticated');
       }

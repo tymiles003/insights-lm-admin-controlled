@@ -59,12 +59,12 @@ const NoteEditor = ({ note, onSave, onDelete, onCancel, isLoading, onCitationCli
   };
 
   const handleGenerateTitle = async () => {
-    if (!note || note.source_type !== 'ai_response') return;
+    if (!note || note.source_type !== 'ai_response' || !content.trim()) return;
     
     setIsGeneratingTitle(true);
     try {
       const { data, error } = await supabase.functions.invoke('generate-note-title', {
-        body: { content: note.content }
+        body: { content: content }
       });
       
       if (error) throw error;
@@ -74,6 +74,7 @@ const NoteEditor = ({ note, onSave, onDelete, onCancel, isLoading, onCitationCli
       }
     } catch (error) {
       console.error('Error generating title:', error);
+      // Don't show error toast for this optional feature
     } finally {
       setIsGeneratingTitle(false);
     }

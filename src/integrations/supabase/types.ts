@@ -149,6 +149,13 @@ export type Database = {
             referencedRelation: "notebooks"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "notes_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
         ]
       }
       profiles: {
@@ -429,6 +436,25 @@ export type Database = {
         Args: { "": string } | { "": unknown }
         Returns: unknown
       }
+      get_accessible_notebooks: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          id: string
+          user_id: string
+          title: string
+          description: string | null
+          color: string | null
+          icon: string | null
+          generation_status: string | null
+          audio_overview_generation_status: string | null
+          audio_overview_url: string | null
+          audio_url_expires_at: string | null
+          example_questions: string[] | null
+          is_public: boolean
+          created_at: string
+          updated_at: string
+        }[]
+      }
       halfvec_avg: {
         Args: { "": number[] }
         Returns: unknown
@@ -473,6 +499,10 @@ export type Database = {
         Args: { "": unknown }
         Returns: unknown
       }
+      is_admin: {
+        Args: Record<PropertyKey, never>
+        Returns: boolean
+      }
       l2_norm: {
         Args: { "": unknown } | { "": unknown }
         Returns: number
@@ -489,6 +519,13 @@ export type Database = {
           metadata: Json
           similarity: number
         }[]
+      }
+      user_has_notebook_access: {
+        Args: {
+          notebook_id: string
+          user_id: string
+        }
+        Returns: boolean
       }
       sparsevec_out: {
         Args: { "": unknown }

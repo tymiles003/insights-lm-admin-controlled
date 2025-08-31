@@ -63,6 +63,7 @@ const AddSourcesDialog = ({
 
   // Only allow admins to use this dialog
   if (!isAdmin) {
+    console.log('AddSourcesDialog: Access denied - user is not admin');
     return null;
   }
 

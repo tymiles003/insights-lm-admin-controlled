@@ -29,7 +29,7 @@ const NotebookHeader = ({ title, notebookId }: NotebookHeaderProps) => {
 
   const handleTitleClick = () => {
     // Only allow editing if user is admin
-    if (notebookId && isAdmin) {
+    if (notebookId && isAdmin && !isUpdating) {
       setIsEditing(true);
       setEditedTitle(title);
     }
