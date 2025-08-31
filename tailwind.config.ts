@@ -90,8 +90,8 @@ export default {
 					700: '#334155',
 					800: '#1e293b',
 					900: '#0f172a',
-				}
-				'legal-gold': {
+        },
+        'legal-gold': {
 					50: '#fffbeb',
 					100: '#fef3c7',
 					200: '#fde68a',
@@ -116,13 +116,13 @@ export default {
 						lineHeight: '1.6',
 						letterSpacing: '-0.01em',
 					},
-					'legal': {
+        },
+        'legal': {
 						css: {
 							fontFamily: 'Inter, system-ui, sans-serif',
 							lineHeight: '1.7',
 						},
-					},
-				},
+        },
 			},
 			keyframes: {
 				'accordion-down': {
@@ -141,7 +141,8 @@ export default {
 						height: '0'
 					}
 				}
-				'fade-in-up': {
+        },
+        'fade-in-up': {
 					'0%': {
 						opacity: '0',
 						transform: 'translateY(10px)'
