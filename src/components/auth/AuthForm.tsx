@@ -101,9 +101,19 @@ const AuthForm = () => {
       
     } catch (error: any) {
       console.error('Auth form error:', error);
+      
+      // Provide more helpful error messages for common issues
+      let errorMessage = error.message;
+      
+      if (error.message?.includes('Failed to fetch') || error.message?.includes('NetworkError')) {
+        errorMessage = 'Cannot connect to authentication service. Please check your internet connection and Supabase configuration.';
+      } else if (error.message?.includes('VITE_SUPABASE_URL') || error.message?.includes('VITE_SUPABASE_ANON_KEY')) {
+        errorMessage = 'Supabase configuration error. Please check your environment variables in .env.local file.';
+      }
+      
       toast({
-        title: "Sign In Error",
-        description: error.message,
+        title: "Authentication Error",
+        description: errorMessage,
         variant: "destructive",
       });
     } finally {

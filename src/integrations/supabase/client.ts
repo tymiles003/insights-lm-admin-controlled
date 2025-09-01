@@ -2,15 +2,15 @@
 import { createClient } from '@supabase/supabase-js';
 import type { Database } from './types';
 
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || '';
+const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
 
-if (!SUPABASE_URL) {
-  throw new Error('Missing VITE_SUPABASE_URL environment variable');
+if (!SUPABASE_URL || SUPABASE_URL.includes('your-project') || SUPABASE_URL === '') {
+  throw new Error('Please set VITE_SUPABASE_URL in .env.local with your actual Supabase project URL');
 }
 
-if (!SUPABASE_PUBLISHABLE_KEY) {
-  throw new Error('Missing VITE_SUPABASE_ANON_KEY environment variable');
+if (!SUPABASE_PUBLISHABLE_KEY || SUPABASE_PUBLISHABLE_KEY.includes('your-supabase') || SUPABASE_PUBLISHABLE_KEY === '') {
+  throw new Error('Please set VITE_SUPABASE_ANON_KEY in .env.local with your actual Supabase anon key');
 }
 
 // Import the supabase client like this:
