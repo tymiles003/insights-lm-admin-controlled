@@ -8,7 +8,7 @@ import { useNotebooks } from '@/hooks/useNotebooks';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProfile } from '@/hooks/useProfile';
 import { Button } from '@/components/ui/button';
-import { Shield, Crown } from 'lucide-react';
+import { Shield, Crown, Settings } from 'lucide-react';
 import { SubscriptionCard } from '@/components/stripe/SubscriptionCard';
 import { useStripe } from '@/hooks/useStripe';
 import { useNavigate } from 'react-router-dom';
@@ -149,6 +149,16 @@ const Dashboard = () => {
               >
                 <Shield className="h-5 w-5" />
                 Admin Panel
+              </Button>
+            )}
+            {isAdmin && (
+              <Button 
+                onClick={() => navigate('/system-admin')}
+                variant="outline"
+                className="flex items-center gap-2 border-slate-300 text-slate-700 hover:bg-slate-100 font-semibold px-8 py-4 rounded-xl text-lg"
+              >
+                <Settings className="h-5 w-5" />
+                System Admin
               </Button>
             )}
             <Button 

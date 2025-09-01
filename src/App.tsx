@@ -12,6 +12,7 @@ import Auth from "./pages/Auth";
 import Pricing from "./pages/Pricing";
 import Success from "./pages/Success";
 import NotFound from "./pages/NotFound";
+import SystemAdmin from "./pages/SystemAdmin";
 
 const queryClient = new QueryClient();
 
@@ -59,6 +60,14 @@ const AppContent = () => {
         } 
       />
       <Route path="/auth" element={<Auth />} />
+      <Route 
+        path="/system-admin" 
+        element={
+          <ProtectedRoute fallback={<Auth />}>
+            <SystemAdmin />
+          </ProtectedRoute>
+        } 
+      />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
