@@ -17,37 +17,20 @@ export function useProfile() {
         .single();
       
       if (error) {
-        console.error('Error fetching profile:', error);
-        // If profile doesn't exist, create one
-        if (error.code === 'PGRST116' && user) {
-          console.log('Profile not found, creating new profile for user:', user.email);
-          
-          const { data: newProfile, error: createError } = await supabase
-            .from('profiles')
-            .insert({
-              id: user.id,
-              email: user.email,
-              full_name: user.user_metadata?.full_name || null,
-              role: 'user' // Default role
-            })
-            .select()
-            .single();
-          
-          if (createError) {
-            console.error('Error creating profile:', createError);
-            throw createError;
-          }
-          
-          return newProfile;
-        } else {
-          return null;
+        // If profile doesn't exist yet, the database trigger will create it
+        if (error.code === 'PGRST116') {
+          console.log('Profile not found yet, will retry...');
+          throw new Error('Profile not ready yet');
         }
+        console.error('Error fetching profile:', error);
+        throw error;
       }
       
       return data;
     },
     enabled: !!user,
-    retry: false, // Don't retry on profile fetch errors
+    retry: 3, // Retry up to 3 times for profile creation
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 3000), // Exponential backoff
   });
 
   return {
