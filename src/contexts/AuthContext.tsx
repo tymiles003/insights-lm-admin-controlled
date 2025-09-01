@@ -66,6 +66,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         // If session is invalid on server, we've already cleared local state
         if (error.message.includes('session_not_found') || 
             error.message.includes('Session not found') ||
+            error.message.includes('user_not_found') ||
             error.status === 403) {
           console.log('AuthContext: Session already invalid on server');
           return;
