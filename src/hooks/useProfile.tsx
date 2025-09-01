@@ -14,14 +14,9 @@ export function useProfile() {
         .from('profiles')
         .select('*')
         .eq('id', user.id)
-        .single();
+        .maybeSingle();
       
       if (error) {
-        // If profile doesn't exist yet, the database trigger will create it
-        if (error.code === 'PGRST116') {
-          console.log('Profile not found yet, will retry...');
-          throw new Error('Profile not ready yet');
-        }
         console.error('Error fetching profile:', error);
         throw error;
       }
